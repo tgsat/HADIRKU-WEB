@@ -37,11 +37,14 @@ const reportStaffingRoute = "/laporan/kepegawaian";
 const authenticationDisplayName = "Logout";
 const authenticationRoute = "/auth";
 // Sig In
-const authSignInDisplayName = "Login";
+const authSignInDisplayName = "Masuk";
 const authSignInRoute = "/auth/login";
 // SignUp
-const authSignUpDisplayName = "Sign Up";
+const authSignUpDisplayName = "Daftar";
 const authSignUpRoute = "/auth/register";
+// Forget Password
+const authForgetPasswordDisplayName = "Lupa Password";
+const authForgetPasswordRoute = "/auth/forget-password";
 
 class MenuItem {
   final String name;

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:hadirku_web/features/authentication/screens/forget_password/forget_password.dart';
 import 'package:hadirku_web/firebase_options.dart';
 import 'package:hadirku_web/layout.dart';
 import 'package:hadirku_web/utils/helper/controller/menu_controler.dart'
@@ -40,6 +41,9 @@ class App extends StatelessWidget {
               }),
           GetPage(name: authenticationRoute, page: () => const LoginScreen()),
           GetPage(name: authSignUpRoute, page: () => const SignUpScreen()),
+          GetPage(
+              name: authForgetPasswordRoute,
+              page: () => const ForgetPasswordScreen()),
         ],
         debugShowCheckedModeBanner: false,
         title: 'HADIRKU',

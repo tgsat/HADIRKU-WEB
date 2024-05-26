@@ -5,6 +5,7 @@ class Dictionary {
   static const String login = "Masuk";
   static const String logout = "Logout";
   static const String signup = "Daftar";
+  static const String submit = "Kirim";
 
   static const String email = "Email";
   static const String password = "Password";
@@ -14,6 +15,8 @@ class Dictionary {
   static const String noHP = "Nomor HP / WA";
   static const String city = "Kota / Kabupaten";
   static const String forgetPassword = "Lupa Password";
+  static const String forgetPasswordSubTitle =
+      "Masukkan email Kamu dan kami akan mengirimkan link reset kata sandi.";
   static const String rememberMe = "Ingatkan Saya";
 
   static const String inProgress = "inProgress";

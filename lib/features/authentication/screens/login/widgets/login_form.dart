@@ -84,11 +84,14 @@ class LoginForm extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                "${Dictionary.forgetPassword}?",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.labelMedium!.apply(color: AppColor.active),
+              TextButton(
+                onPressed: () => Get.toNamed(authForgetPasswordRoute),
+                child: Text(
+                  "${Dictionary.forgetPassword}?",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.labelMedium!.apply(color: AppColor.active),
+                ),
               )
             ],
           ),
