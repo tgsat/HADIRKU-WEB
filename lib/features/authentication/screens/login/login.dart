@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         bottomNavigationBar: BottomNavigationAuth(
           title: Dictionary.dontHaveAccount,
           subTitle: Dictionary.signup,
-          onTap: () => Get.offAllNamed(authSignUpRoute),
+          onTap: () => Get.toNamed(authSignUpRoute),
         ),
       ),
     );

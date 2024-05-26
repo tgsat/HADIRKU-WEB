@@ -27,7 +27,7 @@ class SignUpScreen extends StatelessWidget {
         bottomNavigationBar: BottomNavigationAuth(
             title: Dictionary.alreadyHaveAccount,
             subTitle: Dictionary.login,
-            onTap: () => Get.offAllNamed(authenticationRoute)),
+            onTap: () => Get.toNamed(authSignInRoute)),
       ),
     );
   }

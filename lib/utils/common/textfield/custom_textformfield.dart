@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final String title;
+  final String? title;
   final TextEditingController? controller;
   final IconData? prefixIcon, suffixIcon;
-  final bool isObscure, expands, readOnly, isLabel;
+  final bool isObscure, expands, readOnly;
   final int maxLines;
   final int? maxLength;
   final dynamic validate;
@@ -12,17 +13,17 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? textInputType;
   final TextCapitalization textCapitalization;
   final AutovalidateMode? autovalidateMode;
+  final List<TextInputFormatter> inputFormatters;
   final Function()? onTap;
   const CustomTextFormField({
     super.key,
-    required this.title,
+    this.title,
     this.controller,
     this.prefixIcon,
     this.suffixIcon,
     this.isObscure = false,
     this.expands = false,
     this.readOnly = false,
-    this.isLabel = false,
     this.maxLines = 1,
     this.maxLength,
     this.suffixIconWidget,
@@ -30,6 +31,7 @@ class CustomTextFormField extends StatelessWidget {
     this.textCapitalization = TextCapitalization.none,
     this.autovalidateMode,
     this.validate,
+    this.inputFormatters = const [],
     this.onTap,
   });
 
@@ -49,9 +51,9 @@ class CustomTextFormField extends StatelessWidget {
         keyboardType: (textInputType != null) ? textInputType : null,
         textCapitalization: textCapitalization,
         autovalidateMode: (autovalidateMode != null) ? autovalidateMode : null,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
-          hintText: isLabel ? null : title,
-          labelText: isLabel ? title : null,
+          hintText: (title == "") ? "" : title,
           prefixIcon: (prefixIcon != null)
               ? Icon(prefixIcon, color: Colors.black54)
               : null,

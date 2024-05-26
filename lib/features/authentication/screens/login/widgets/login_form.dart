@@ -32,30 +32,34 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 10),
           const TextHeaderAuth(title: Dictionary.login),
           const SizedBox(height: 10),
-          CustomTextFormField(
+          CustomLayoutTextFormField(
             title: Dictionary.email,
-            isLabel: true,
-            controller: controller.email,
-            textInputType: TextInputType.emailAddress,
-            validate: (value) => Validator.validateEmail(value),
+            isScreen: !ResponsiveWidget.isSmallScreen(context),
+            child: CustomTextFormField(
+              controller: controller.email,
+              textInputType: TextInputType.emailAddress,
+              validate: (value) => Validator.validateEmail(value),
+            ),
           ),
           const SizedBox(height: SizeConfig.spaceBtwInputFiels),
           Obx(
-            () => CustomTextFormField(
+            () => CustomLayoutTextFormField(
               title: Dictionary.password,
-              isLabel: true,
-              controller: controller.password,
-              isObscure: controller.hidePassword.value,
-              validate: (value) =>
-                  Validator.validateEmptyText(Dictionary.password, value),
-              suffixIconWidget: IconButton(
-                onPressed: () => controller.hidePassword.value =
-                    !controller.hidePassword.value,
-                icon: SvgPicture.asset(
-                    controller.hidePassword.value
-                        ? AppIcons.eyeHide
-                        : AppIcons.eyeShow,
-                    color: AppColor.darkGrey),
+              isScreen: !ResponsiveWidget.isSmallScreen(context),
+              child: CustomTextFormField(
+                controller: controller.password,
+                isObscure: controller.hidePassword.value,
+                validate: (value) =>
+                    Validator.validateEmptyText(Dictionary.password, value),
+                suffixIconWidget: IconButton(
+                  onPressed: () => controller.hidePassword.value =
+                      !controller.hidePassword.value,
+                  icon: SvgPicture.asset(
+                      controller.hidePassword.value
+                          ? AppIcons.eyeHide
+                          : AppIcons.eyeShow,
+                      color: AppColor.darkGrey),
+                ),
               ),
             ),
           ),

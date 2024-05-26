@@ -101,9 +101,12 @@ class Validator {
       return '$field tidak boleh kosong.';
     }
 
-    final phoneRegExp = RegExp(r'^\d{10}$');
-    if (phoneRegExp.hasMatch(value)) {
-      return '$field tidak valid.';
+    if (value.length < 9) {
+      return '$field terlalu pendek, minimal 9 digit.';
+    }
+
+    if (value.length > 13) {
+      return '$field terlalu panjang, maksimal 13 digit.';
     }
     return null;
   }

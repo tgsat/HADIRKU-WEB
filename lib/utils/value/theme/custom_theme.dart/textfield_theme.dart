@@ -9,6 +9,7 @@ class TextFieldThemes {
     errorMaxLines: 3,
     prefixIconColor: AppColor.grey,
     suffixIconColor: AppColor.grey,
+    contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
     labelStyle: GoogleFonts.poppins()
         .copyWith(fontSize: SizeConfig.fontSizeMd, color: AppColor.black),
     hintStyle: GoogleFonts.poppins()
