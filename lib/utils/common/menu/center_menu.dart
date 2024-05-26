@@ -8,6 +8,6 @@ class CenterMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isCenter ? Center(child: child) : child;
+    return (isCenter) ? Center(child: child) : child;
   }
 }

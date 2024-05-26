@@ -17,8 +17,11 @@ class LoginScreen extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               constraints: BoxConstraints(
-                  maxWidth:
-                      !ResponsiveWidget.isSmallScreen(context) ? 550 : 400),
+                  maxWidth: !ResponsiveWidget.isMediumScreen(context)
+                      ? ResponsiveWidget.isSmallScreen(context)
+                          ? double.infinity
+                          : 550
+                      : 400),
               child: const LoginForm(),
             ),
           ),

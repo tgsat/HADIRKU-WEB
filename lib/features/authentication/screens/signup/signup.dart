@@ -18,8 +18,11 @@ class SignUpScreen extends StatelessWidget {
               padding: const EdgeInsets.all(4),
               margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               constraints: BoxConstraints(
-                  maxWidth:
-                      !ResponsiveWidget.isSmallScreen(context) ? 550 : 400),
+                  maxWidth: !ResponsiveWidget.isMediumScreen(context)
+                      ? ResponsiveWidget.isSmallScreen(context)
+                          ? double.infinity
+                          : 550
+                      : 400),
               child: const SignUpForm(),
             ),
           ),
