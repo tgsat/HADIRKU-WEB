@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hadirku_web/utils/utils.dart';
 
 class SizeConfig {
   // Fonts sizes
@@ -46,5 +47,11 @@ class SizeConfig {
 
   static double maxWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
+  }
+
+  static bool allScreen(BuildContext context) {
+    return (ResponsiveWidget.isSmallScreen(context) ||
+        ResponsiveWidget.isMediumScreen(context) ||
+        ResponsiveWidget.isLargeScreen(context));
   }
 }

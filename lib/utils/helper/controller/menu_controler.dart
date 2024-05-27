@@ -38,11 +38,11 @@ class MenuController extends GetxController {
   Widget _customIcon(String icon, String itemName) {
     if (isActive(itemName)) {
       return SvgPicture.asset(icon,
-          width: SizeConfig.dl, color: AppColor.light);
+          width: SizeConfig.dl, color: AppColor.active);
     }
 
     return SvgPicture.asset(icon,
         width: SizeConfig.dl,
-        color: isHovering(itemName) ? AppColor.light : AppColor.lightGrey);
+        color: isHovering(itemName) ? AppColor.active : AppColor.darkerGrey);
   }
 }

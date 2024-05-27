@@ -30,9 +30,13 @@ class VertticalMenuItem extends StatelessWidget {
                     maintainAnimation: true,
                     maintainState: true,
                     child: Container(
-                      width: 3,
-                      height: 72,
-                      color: Colors.white,
+                      width: 4,
+                      height: 70,
+                      decoration: const BoxDecoration(
+                          color: AppColor.dark,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(4),
+                              bottomRight: Radius.circular(4))),
                     ),
                   ),
                   Expanded(
@@ -40,21 +44,22 @@ class VertticalMenuItem extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           child: menuController.returnIconFor(itemName),
                         ),
                         if (!menuController.isActive(itemName))
                           Flexible(
                               child: Text(itemName,
-                                  style: theme.titleLarge!.apply(
+                                  style: theme.titleSmall!.apply(
                                       color: menuController.isHovering(itemName)
-                                          ? Colors.white
-                                          : AppColor.lightGrey)))
+                                          ? AppColor.active
+                                          : AppColor.darkerGrey)))
                         else
                           Flexible(
                               child: Text(itemName,
-                                  style: theme.titleLarge!
-                                      .apply(color: Colors.white)))
+                                  style: theme.titleSmall!
+                                      .apply(color: AppColor.active)))
                       ],
                     ),
                   ),

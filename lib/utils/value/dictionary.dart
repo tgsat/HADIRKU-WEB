@@ -12,8 +12,8 @@ class Dictionary {
   static const String passwordConfirm = "Konfirmasi Password";
   static const String companyName = "Nama Perusahaan";
   static const String fullName = "Nama Lengkap";
-  static const String noHP = "Nomor HP / WA";
-  static const String city = "Kota / Kabupaten";
+  static const String noHP = "Nomor HP/WA";
+  static const String city = "Kota/Kabupaten";
   static const String forgetPassword = "Lupa Password";
   static const String forgetPasswordSubTitle =
       "Masukkan email Kamu dan kami akan mengirimkan link reset kata sandi.";
@@ -32,7 +32,7 @@ class Dictionary {
   static const String loginSubTitle = "Selamat datang kembali";
   static const String signupTitle = "Daftar Sekarang!";
   static const String signupSubTitle =
-      "Pendaftar Hanya Dilakukan Oleh Owner / HRD / Administrator";
+      "Pendaftar Hanya Dilakukan Oleh Owner/HRD/Administrator";
 
   static const String alreadyHaveAccount = "Sudah memiliki akun? ";
   static const String dontHaveAccount = "Belum punya akun? ";

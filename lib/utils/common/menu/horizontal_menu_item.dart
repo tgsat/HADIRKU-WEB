@@ -33,7 +33,7 @@ class HorizontalMenuItem extends StatelessWidget {
                       width: 4,
                       height: 40,
                       decoration: const BoxDecoration(
-                          color: AppColor.light,
+                          color: AppColor.dark,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(4),
                               bottomRight: Radius.circular(4))),
@@ -47,15 +47,15 @@ class HorizontalMenuItem extends StatelessWidget {
                   if (!menuController.isActive(itemName))
                     Flexible(
                         child: Text(itemName,
-                            style: theme.titleLarge!.apply(
+                            style: theme.titleSmall!.apply(
                                 color: menuController.isHovering(itemName)
-                                    ? AppColor.light
-                                    : AppColor.lightGrey)))
+                                    ? AppColor.active
+                                    : AppColor.darkerGrey)))
                   else
                     Flexible(
                         child: Text(itemName,
-                            style:
-                                theme.titleLarge!.apply(color: AppColor.light)))
+                            style: theme.titleSmall!
+                                .apply(color: AppColor.active)))
                 ],
               ),
             )));

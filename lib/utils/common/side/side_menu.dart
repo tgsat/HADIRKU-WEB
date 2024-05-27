@@ -8,7 +8,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.secondary,
+      color: AppColor.white,
       child: ListView(
         children: [
           if (ResponsiveWidget.isSmallScreen(context))
@@ -16,7 +16,7 @@ class SideMenu extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Row(
                   children: [
@@ -42,13 +42,13 @@ class SideMenu extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
               ],
             ),
           if (ResponsiveWidget.isSmallScreen(context))
             Divider(
-              color: AppColor.lightGrey.withOpacity(.1),
+              color: AppColor.dark.withOpacity(.1),
             ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -56,8 +56,8 @@ class SideMenu extends StatelessWidget {
                 .map((item) => SideMenuItem(
                     itemName: item.name,
                     onTap: () {
-                      if (item.route == authenticationRoute) {
-                        Get.offAllNamed(authenticationRoute);
+                      if (item.route == dashboardRoute) {
+                        Get.offAllNamed(dashboardRoute);
                         menuController.changeActiveItemTo(dashboardDisplayName);
                       }
                       if (!menuController.isActive(item.name)) {

@@ -1,22 +1,28 @@
+//// [Leading Page] - Home
+const homeDisplayName = "Home";
 const initialRoute = "/";
 
+//// [Leading Page] - About
+const aboutDisplayName = "About";
+const aboutRoute = "/about";
+
 const dashboardDisplayName = "Dasboard";
-const dashboardRoute = "/overview";
+const dashboardRoute = "/dashboard";
 
 const staffingDisplayName = "Pegawai";
-const staffingRoute = "/drivers";
+const staffingRoute = "/dashboard/staffing";
 
-const permissionDisplayName = "Ijin / Cuti";
-const permissionRoute = "/leave";
+const permissionDisplayName = "Ijin/Cuti";
+const permissionRoute = "/dashboard/leave";
 
 const salaryDisplayName = "Slip Gaji";
-const salaryRoute = "/salary";
+const salaryRoute = "/dashboard/salary";
 
 const presenceDisplayName = "Absensi";
-const presenceRoute = "/presence";
+const presenceRoute = "/dashboard/presence";
 
 const taskDisplayName = "Tugas";
-const taskRoute = "/tugas";
+const taskRoute = "/dashboard/tugas";
 
 // Report
 const reportDisplayName = "Laporan";

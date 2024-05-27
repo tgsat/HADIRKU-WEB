@@ -33,6 +33,7 @@ export 'package:hadirku_web/utils/common/menu/top_navigator_menu.dart';
 export 'package:hadirku_web/utils/common/menu/vertical_menu_item.dart';
 export 'package:hadirku_web/utils/common/responsive/large_screen.dart';
 export 'package:hadirku_web/utils/common/responsive/responsive.dart';
+export 'package:hadirku_web/utils/common/responsive/space.dart';
 export 'package:hadirku_web/utils/common/side/side_menu.dart';
 export 'package:hadirku_web/utils/common/side/side_menu_item.dart';
 export 'package:hadirku_web/utils/common/textfield/custom_layout_textformfield.dart';

@@ -100,7 +100,7 @@ class LoginForm extends StatelessWidget {
               title: Dictionary.login,
               onTap: () {
                 if (controller.loginFormKey.currentState!.validate()) {
-                  Get.offAllNamed(initialRoute);
+                  Get.offAllNamed(dashboardRoute);
                 }
                 // Get.offAllNamed(initialRoute);
               }),

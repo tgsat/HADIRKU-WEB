@@ -127,7 +127,7 @@ class SignUpForm extends StatelessWidget {
             title: Dictionary.signup,
             onTap: () {
               if (controller.signUpFormKey.currentState!.validate()) {
-                Get.offAllNamed(initialRoute);
+                Get.offAllNamed(dashboardRoute);
               }
             },
           ),

@@ -10,6 +10,7 @@ class LeaveScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 8),
         const HeaderTextDisplay(),
         Expanded(
             child: ListView(

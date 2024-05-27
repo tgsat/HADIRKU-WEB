@@ -15,6 +15,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 8),
         const HeaderTextDisplay(),
         Expanded(
           child: ListView(
@@ -34,7 +35,7 @@ class DashboardScreen extends StatelessWidget {
               const DashboardTable(),
             ],
           ),
-        )
+        ),
       ],
     );
   }

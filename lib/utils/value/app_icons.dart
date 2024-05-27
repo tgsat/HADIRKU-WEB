@@ -6,6 +6,7 @@ class AppIcons {
   static const String mainLogo = 'assets/images/main-logo.png';
 
   static const String add = 'assets/icons/add-outline.svg';
+  static const String apps = 'assets/icons/apps-sharp.svg';
   static const String close = 'assets/icons/close-outline.svg';
   static const String trash = 'assets/icons/close-outline.svg';
   static const String eyeShow = 'assets/icons/eye-outline.svg';

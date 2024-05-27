@@ -7,15 +7,28 @@ import '../../../features/display/staffing/staffing.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case initialRoute:
-      return _getPageRoute(const Text('initial page'));
+    case authenticationRoute:
+      return _getPageRoute(const Center(child: Text('Settings')));
     case dashboardRoute:
       return _getPageRoute(const DashboardScreen());
     case staffingRoute:
       return _getPageRoute(const StaffingScreen());
-
     case permissionRoute:
       return _getPageRoute(const LeaveScreen());
+
+    default:
+      return _getPageRoute(Scaffold(
+        body: Center(child: Text('No route defined for ${settings.name}')),
+      ));
+  }
+}
+
+Route<dynamic> mainGenerateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case initialRoute:
+      return _getPageRoute(const Center(child: Text('Home Screen')));
+    case aboutRoute:
+      return _getPageRoute(const Center(child: Text('About Screen')));
 
     default:
       return _getPageRoute(Scaffold(
