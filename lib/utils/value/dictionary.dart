@@ -55,4 +55,7 @@ class Dictionary {
   static const String deleteDescription =
       "Apakah kamu yakin ingin menghapus akun secara permanen?. Tindakan ini tidak dapat dibatalkan dan semua data kamu akan dihapus secara permanen.";
   static const String logoutDescription = "apakah kamu yakin ingin keluar?.";
+  static const String emailSent = "Email terkirim";
+  static const String emailSentDes =
+      "Tautan Email Dikirim untuk Mengatur Ulang Kata Sandi Anda";
 }

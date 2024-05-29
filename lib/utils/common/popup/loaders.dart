@@ -42,12 +42,12 @@ class Loaders {
           ResponsiveWidget.isSmallScreen(Get.context!) ? double.infinity : 600,
       dismissDirection: DismissDirection.up,
       colorText: AppColor.white,
-      backgroundColor: AppColor.primary,
+      backgroundColor: Colors.green,
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: duration),
       margin: const EdgeInsets.all(10),
       icon: SvgPicture.asset(AppIcons.check,
-          width: SizeConfig.md, color: AppColor.white),
+          width: SizeConfig.lg, color: AppColor.white),
     );
   }
 
@@ -71,7 +71,7 @@ class Loaders {
       duration: const Duration(seconds: 3),
       margin: const EdgeInsets.all(10),
       icon: SvgPicture.asset(AppIcons.warning,
-          width: SizeConfig.md, color: AppColor.white),
+          width: SizeConfig.lg, color: AppColor.white),
     );
   }
 
@@ -95,7 +95,7 @@ class Loaders {
       duration: Duration(seconds: duration),
       margin: const EdgeInsets.all(10),
       icon: SvgPicture.asset(AppIcons.wifi,
-          width: SizeConfig.md, color: AppColor.white),
+          width: SizeConfig.lg, color: AppColor.white),
     );
   }
 
@@ -119,7 +119,7 @@ class Loaders {
       duration: const Duration(seconds: 3),
       margin: const EdgeInsets.all(10),
       icon: SvgPicture.asset(AppIcons.close,
-          width: SizeConfig.md, color: AppColor.white),
+          width: SizeConfig.lg, color: AppColor.white),
     );
   }
 }

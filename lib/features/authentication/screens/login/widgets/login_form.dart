@@ -77,6 +77,8 @@ class LoginForm extends StatelessWidget {
                           onChanged: (value) {
                             controller.rememberMe.value =
                                 !controller.rememberMe.value;
+                            debugPrint(
+                                'value remember me :${controller.rememberMe.value}');
                           }),
                     ),
                     Text(
