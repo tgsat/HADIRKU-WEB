@@ -71,9 +71,13 @@ class LoginForm extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    Checkbox(
-                      value: false,
-                      onChanged: (value) {},
+                    Obx(
+                      () => Checkbox(
+                          value: controller.rememberMe.value,
+                          onChanged: (value) {
+                            controller.rememberMe.value =
+                                !controller.rememberMe.value;
+                          }),
                     ),
                     Text(
                       Dictionary.rememberMe,
@@ -98,12 +102,7 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 15),
           ButtonPrimary(
               title: Dictionary.login,
-              onTap: () {
-                if (controller.loginFormKey.currentState!.validate()) {
-                  Get.offAllNamed(dashboardRoute);
-                }
-                // Get.offAllNamed(initialRoute);
-              }),
+              onTap: () => controller.emailAndPasswordSignin()),
         ],
       ),
     );

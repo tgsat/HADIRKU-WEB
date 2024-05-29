@@ -40,7 +40,7 @@ const reportPermissionRoute = "/laporan/ijin-cuti";
 const reportStaffingDisplayName = "Laporan/Kepegawaian";
 const reportStaffingRoute = "/laporan/kepegawaian";
 // Log Out
-const authenticationDisplayName = "Logout";
+const authenticationDisplayName = "Setting";
 const authenticationRoute = "/auth";
 // Sig In
 const authSignInDisplayName = "Masuk";

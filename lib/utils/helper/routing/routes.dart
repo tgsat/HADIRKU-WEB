@@ -1,3 +1,4 @@
+import 'package:hadirku_web/features/authentication/screens/login/login.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,8 @@ Route<dynamic> mainGenerateRoute(RouteSettings settings) {
       return _getPageRoute(const Center(child: Text('Home Screen')));
     case aboutRoute:
       return _getPageRoute(const Center(child: Text('About Screen')));
+    case authSignInRoute:
+      return _getPageRoute(const LoginScreen());
 
     default:
       return _getPageRoute(Scaffold(

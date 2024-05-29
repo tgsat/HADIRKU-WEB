@@ -37,11 +37,17 @@ class DrawerSmall extends StatelessWidget {
               DrawerHorizontalMenuItem(
                   itemName: authSignInDisplayName,
                   onTap: () {
+                    if (ResponsiveWidget.isSmallScreen(context)) {
+                      Get.back();
+                    }
                     html.window.open(authSignInRoute, "_blank");
                   }),
               DrawerHorizontalMenuItem(
                   itemName: authSignUpDisplayName,
                   onTap: () {
+                    if (ResponsiveWidget.isSmallScreen(context)) {
+                      Get.back();
+                    }
                     html.window.open(authSignUpRoute, "_blank");
                   }),
             ],

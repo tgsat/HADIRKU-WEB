@@ -3,12 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
+import '../../../features/personalization/controllers/user_controller.dart';
+
 class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey<ScaffoldState> keys;
   const TopNavigatorMenu({super.key, required this.keys});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return AppBar(
       leading: !ResponsiveWidget.isSmallScreen(context)
           ? const Row(
@@ -66,19 +69,38 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
             width: 16,
           ),
           PopupMenuButton(
-            itemBuilder: (cxt) {
-              return [
-                PopupMenuItem<String>(
-                  value: 'profile',
-                  onTap: () => Get.back(),
-                  child: const Text('Edit Profile'),
+            itemBuilder: (cxt) => [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Text(
+                  'Edit Profile',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .apply(color: AppColor.darkerGrey),
                 ),
-                PopupMenuItem<String>(
-                  value: 'logout',
-                  onTap: () => Get.offAllNamed(authSignInRoute),
-                  child: const Text('Keluar'),
+              ),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Text(
+                  'Keluar',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .apply(color: AppColor.darkerGrey),
                 ),
-              ];
+              ),
+            ],
+            onSelected: (val) {
+              if (val == 0) {
+                debugPrint("Edit Profile menu is select $val.");
+              } else if (val == 1) {
+                debugPrint("Logout menu is select $val.");
+                controller.logoutAccountWarningPopUp(() {
+                  controller.authRepository.logout();
+                  Navigator.of(context).pop();
+                });
+              }
             },
             child: SvgPicture.asset(
               AppIcons.user,
@@ -88,14 +110,22 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
           ),
           Visibility(
             visible: !ResponsiveWidget.isSmallScreen(context),
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(width: 8),
-                Text("Tahu Bulat",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: AppColor.light)),
+                const SizedBox(width: 8),
+                Obx(
+                  () {
+                    if (controller.profileLoading.value) {
+                      return Container();
+                    } else {
+                      return Text(controller.user.value.fullName,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: AppColor.light));
+                    }
+                  },
+                ),
               ],
             ),
           ),

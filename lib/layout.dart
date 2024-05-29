@@ -3,8 +3,8 @@ import 'package:hadirku_web/utils/utils.dart';
 
 class LayoutScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
   LayoutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

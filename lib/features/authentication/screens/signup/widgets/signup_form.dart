@@ -125,11 +125,7 @@ class SignUpForm extends StatelessWidget {
           const SizedBox(height: 15),
           ButtonPrimary(
             title: Dictionary.signup,
-            onTap: () {
-              if (controller.signUpFormKey.currentState!.validate()) {
-                Get.offAllNamed(dashboardRoute);
-              }
-            },
+            onTap: () => controller.signup(),
           ),
         ],
       ),

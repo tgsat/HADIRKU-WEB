@@ -18,4 +18,9 @@ class AppIcons {
   static const String notification = 'assets/icons/notifications-outline.svg';
   static const String user = 'assets/icons/person-outline.svg';
   static const String logout = 'assets/icons/trash-outline.svg';
+
+  static const String wifi = 'assets/icons/wifi-outline.svg';
+  static const String check = 'assets/icons/checkmark-done.svg';
+  static const String warning = 'assets/icons/warning-outline.svg';
+  static const String error = 'assets/icons/close-circle-outline.svg';
 }

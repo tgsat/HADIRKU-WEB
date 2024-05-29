@@ -36,4 +36,23 @@ class Dictionary {
 
   static const String alreadyHaveAccount = "Sudah memiliki akun? ";
   static const String dontHaveAccount = "Belum punya akun? ";
+
+  static const String oops = "Oops!";
+  static const String congratulations = "Yeay";
+  static const String congratulationsDes =
+      "Akun Anda telah dibuat! verifikasi email untuk melanjutkan.";
+  static const String yourProfileImgUpdate =
+      "Gambar Profil Anda telah diperbarui!.";
+  static const String emptyData = "Tidak ada data ditemukan!";
+  static const String somethingWentWrong = "Terjadi kesalahan";
+  static const String noInternet =
+      "Tidak ada Koneksi Internet yang ditemukan. Periksa koneksi Anda atau coba lagi.";
+  static const String dataNotSave = "Data tidak tersimpan";
+  static const String dataNotSaveDes =
+      "Terjadi masalah saat menyimpan informasi. Anda dapat menyimpan kembali data Anda di profil Anda.";
+  static const String delete = "Hapus";
+  static const String deleteAccount = "Hapus Akun";
+  static const String deleteDescription =
+      "Apakah kamu yakin ingin menghapus akun secara permanen?. Tindakan ini tidak dapat dibatalkan dan semua data kamu akan dihapus secara permanen.";
+  static const String logoutDescription = "apakah kamu yakin ingin keluar?.";
 }
