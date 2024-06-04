@@ -13,19 +13,9 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(UserController());
     return AppBar(
+      automaticallyImplyLeading: false,
       leading: !ResponsiveWidget.isSmallScreen(context)
-          ? const Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Image(
-                    image: AssetImage(AppIcons.mainLogo),
-                    width: 28,
-                    color: AppColor.light,
-                  ),
-                ),
-              ],
-            )
+          ? null
           : IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () {
@@ -35,39 +25,35 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Visibility(
               visible: !ResponsiveWidget.isSmallScreen(context),
-              child: Text(Dictionary.appName.toUpperCase(),
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontSize: 20,
-                      color: AppColor.light,
-                      fontWeight: FontWeight.bold))),
-          Expanded(child: Container()),
-          Stack(
-            children: [
-              IconButton(
-                  icon: SvgPicture.asset(
-                    AppIcons.notification,
-                    width: SizeConfig.dl,
-                    color: AppColor.light,
+              child: Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Image(
+                      image: AssetImage(AppIcons.mainLogo),
+                      width: 28,
+                    ),
                   ),
-                  onPressed: () {}),
-              Positioned(
-                top: 7,
-                right: 7,
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      color: AppColor.red.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: AppColor.light, width: 2)),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(
-            width: 16,
-          ),
+                  Text(Dictionary.appName.toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              fontSize: 20,
+                              color: AppColor.dark,
+                              fontWeight: FontWeight.bold)),
+                ],
+              )),
+          const HeaderTextDisplay(),
+          Expanded(child: Container()),
+          ButtonOpacity(
+              child: SvgPicture.asset(
+                AppIcons.notification,
+                width: SizeConfig.dl,
+                color: AppColor.dark,
+              ),
+              onTap: () {}),
+          const SizedBox(width: 6),
           PopupMenuButton(
             itemBuilder: (cxt) => [
               PopupMenuItem<int>(
@@ -105,7 +91,7 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
             child: SvgPicture.asset(
               AppIcons.user,
               width: SizeConfig.dl,
-              color: AppColor.light,
+              color: AppColor.dark,
             ),
           ),
           Visibility(
@@ -114,7 +100,7 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(width: 8),
+                const SizedBox(width: 6),
                 Obx(
                   () {
                     if (controller.profileLoading.value) {
@@ -122,7 +108,10 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
                     } else {
                       return Text(controller.user.value.fullName,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(color: AppColor.light));
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .apply(color: AppColor.dark));
                     }
                   },
                 ),
@@ -131,9 +120,9 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
-      iconTheme: const IconThemeData(color: AppColor.light),
+      iconTheme: const IconThemeData(color: AppColor.dark),
       elevation: 0,
-      backgroundColor: AppColor.primary,
+      backgroundColor: AppColor.white,
     );
   }
 

@@ -18,44 +18,37 @@ class HorizontalMenuItem extends StatelessWidget {
               : menuController.onHover("not hovering");
         },
         child: Obx(() => Container(
-              color: menuController.isHovering(itemName)
-                  ? AppColor.lightGrey.withOpacity(0.1)
-                  : Colors.transparent,
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              decoration: BoxDecoration(
+                  color: menuController.isHovering(itemName)
+                      ? AppColor.active.withOpacity(0.1)
+                      : menuController.isActive(itemName)
+                          ? AppColor.active
+                          : Colors.transparent,
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Row(
                 children: [
-                  Visibility(
-                    visible: menuController.isHovering(itemName) ||
-                        menuController.isActive(itemName),
-                    maintainSize: true,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    child: Container(
-                      width: 4,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                          color: AppColor.dark,
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(4),
-                              bottomRight: Radius.circular(4))),
-                    ),
-                  ),
-                  SizedBox(width: SizeConfig.maxWidth(context) / 88),
                   Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(10),
                     child: menuController.returnIconFor(itemName),
                   ),
                   if (!menuController.isActive(itemName))
                     Flexible(
                         child: Text(itemName,
-                            style: theme.titleSmall!.apply(
+                            style: theme.labelLarge!.apply(
                                 color: menuController.isHovering(itemName)
                                     ? AppColor.active
-                                    : AppColor.darkerGrey)))
+                                    : menuController.isActive(itemName)
+                                        ? AppColor.white
+                                        : AppColor.darkerGrey)))
                   else
                     Flexible(
                         child: Text(itemName,
-                            style: theme.titleSmall!
-                                .apply(color: AppColor.active)))
+                            style: theme.labelLarge!.apply(
+                                color: menuController.isActive(itemName)
+                                    ? AppColor.white
+                                    : AppColor.active)))
                 ],
               ),
             )));

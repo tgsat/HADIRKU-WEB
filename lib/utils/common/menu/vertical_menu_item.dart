@@ -18,50 +18,37 @@ class VertticalMenuItem extends StatelessWidget {
               : menuController.onHover("not hovering");
         },
         child: Obx(() => Container(
-              color: menuController.isHovering(itemName)
-                  ? AppColor.lightGrey.withOpacity(.1)
-                  : Colors.transparent,
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                  color: menuController.isHovering(itemName)
+                      ? AppColor.active.withOpacity(0.1)
+                      : menuController.isActive(itemName)
+                          ? AppColor.active
+                          : Colors.transparent,
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Row(
                 children: [
-                  Visibility(
-                    visible: menuController.isHovering(itemName) ||
-                        menuController.isActive(itemName),
-                    maintainSize: true,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    child: Container(
-                      width: 4,
-                      height: 70,
-                      decoration: const BoxDecoration(
-                          color: AppColor.dark,
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(4),
-                              bottomRight: Radius.circular(4))),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
-                          child: menuController.returnIconFor(itemName),
-                        ),
-                        if (!menuController.isActive(itemName))
-                          Flexible(
-                              child: Text(itemName,
-                                  style: theme.titleSmall!.apply(
-                                      color: menuController.isHovering(itemName)
-                                          ? AppColor.active
-                                          : AppColor.darkerGrey)))
-                        else
-                          Flexible(
-                              child: Text(itemName,
-                                  style: theme.titleSmall!
-                                      .apply(color: AppColor.active)))
-                      ],
-                    ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (!menuController.isActive(itemName))
+                        Flexible(
+                            child: Text(itemName,
+                                style: theme.labelLarge!.apply(
+                                    color: menuController.isHovering(itemName)
+                                        ? AppColor.active
+                                        : menuController.isActive(itemName)
+                                            ? AppColor.white
+                                            : AppColor.darkerGrey)))
+                      else
+                        Flexible(
+                            child: Text(itemName,
+                                style: theme.labelLarge!.apply(
+                                    color: menuController.isActive(itemName)
+                                        ? AppColor.white
+                                        : AppColor.active)))
+                    ],
                   ),
                 ],
               ),

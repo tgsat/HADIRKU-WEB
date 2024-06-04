@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
 class HeaderTextDisplay extends StatelessWidget {
@@ -6,18 +7,16 @@ class HeaderTextDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final itemName = menuController.activeItem.value;
-    return Row(
-      children: [
-        Space.xm!,
-        Container(
-          margin: EdgeInsets.only(top: SizeConfig.allScreen(context) ? 56 : 20),
-          child: Text("$dashboardDisplayName > $itemName",
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: AppColor.black.withOpacity(0.6),
-                  decoration: TextDecoration.none)),
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: !ResponsiveWidget.isSmallScreen(context) ? 30 : 0),
+      child: Obx(
+        () => Text(menuController.activeItem.value,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold)),
+      ),
     );
   }
 }

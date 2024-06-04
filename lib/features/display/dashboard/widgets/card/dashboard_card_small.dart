@@ -18,7 +18,6 @@ class DashboardCardSmallScreen extends StatelessWidget {
                 "${Dictionary.totalStaffing.capitalize} (${Dictionary.permissionStaffing})",
             value: "7",
             onTap: () {},
-            isActive: true,
           ),
           SizedBox(
             height: SizeConfig.maxWidth(context) / 64,

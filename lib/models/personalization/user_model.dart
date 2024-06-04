@@ -5,6 +5,7 @@ class UserModel {
   String companyName;
   String fullName;
   String city;
+  String? roles;
   final String email;
   String phoneNumber;
   String profilePicture;
@@ -17,6 +18,7 @@ class UserModel {
     required this.companyName,
     required this.fullName,
     required this.city,
+    this.roles,
     required this.email,
     required this.phoneNumber,
     required this.profilePicture,
@@ -31,6 +33,7 @@ class UserModel {
         companyName: '',
         fullName: '',
         city: '',
+        roles: '',
         email: '',
         phoneNumber: '',
         profilePicture: '',
@@ -44,6 +47,7 @@ class UserModel {
       'CompanyName': companyName,
       'FullName': fullName,
       'City': city,
+      'Roles': roles,
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
@@ -63,6 +67,7 @@ class UserModel {
         companyName: data['CompanyName'] ?? '',
         fullName: data['FullName'] ?? '',
         city: data['City'] ?? '',
+        roles: data['Roles'] ?? '',
         email: data['Email'] ?? '',
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',

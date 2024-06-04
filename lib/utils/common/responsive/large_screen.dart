@@ -16,6 +16,13 @@ class LargeScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: localNavigator(),
           ),
+        ),
+        Visibility(
+          visible: !ResponsiveWidget.isLargeScreen(context),
+          child: Expanded(
+            flex: 2,
+            child: Container(),
+          ),
         )
       ],
     );

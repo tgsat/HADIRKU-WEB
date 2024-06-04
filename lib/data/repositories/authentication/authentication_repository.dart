@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +10,6 @@ import '../personalization/user_repository.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
   // Get Authenticated user data
@@ -21,7 +18,6 @@ class AuthenticationRepository extends GetxController {
   // Called from main.app on app launch
   @override
   void onReady() {
-    FlutterNativeSplash.remove();
     screenRedirect();
   }
 

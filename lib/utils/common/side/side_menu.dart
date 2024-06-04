@@ -50,14 +50,15 @@ class SideMenu extends StatelessWidget {
             Divider(
               color: AppColor.dark.withOpacity(.1),
             ),
+          const SideMenuHeader(title: 'Main Menu'),
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: sideMenuItemRoutes
+            children: sideMainMenuItemRoutes
                 .map((item) => SideMenuItem(
                     itemName: item.name,
                     onTap: () {
-                      if (item.route == dashboardRoute) {
-                        Get.offAllNamed(dashboardRoute);
+                      if (item.route == authenticationRoute) {
+                        Get.offAllNamed(authenticationRoute);
                         menuController.changeActiveItemTo(dashboardDisplayName);
                       }
                       if (!menuController.isActive(item.name)) {
@@ -69,7 +70,24 @@ class SideMenu extends StatelessWidget {
                       }
                     }))
                 .toList(),
-          )
+          ),
+          const SideMenuHeader(title: 'Account'),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: sideAccountMenuItemRoutes
+                .map((item) => SideMenuItem(
+                    itemName: item.name,
+                    onTap: () {
+                      if (!menuController.isActive(item.name)) {
+                        menuController.changeActiveItemTo(item.name);
+                        if (ResponsiveWidget.isSmallScreen(context)) {
+                          Get.back();
+                        }
+                        navigationController.navigateTo(item.route);
+                      }
+                    }))
+                .toList(),
+          ),
         ],
       ),
     );

@@ -15,7 +15,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeConfig.allScreen(context) ? 56 : 20),
+        const SizedBox(height: 20),
         Expanded(
           child: ListView(
             children: [

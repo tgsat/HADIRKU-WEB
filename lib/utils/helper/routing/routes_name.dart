@@ -59,9 +59,12 @@ class MenuItem {
   MenuItem(this.name, this.route);
 }
 
-List<MenuItem> sideMenuItemRoutes = [
+List<MenuItem> sideMainMenuItemRoutes = [
   MenuItem(dashboardDisplayName, dashboardRoute),
   MenuItem(staffingDisplayName, staffingRoute),
   MenuItem(permissionDisplayName, permissionRoute),
+];
+
+List<MenuItem> sideAccountMenuItemRoutes = [
   MenuItem(authenticationDisplayName, authenticationRoute),
 ];

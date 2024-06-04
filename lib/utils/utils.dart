@@ -41,6 +41,7 @@ export 'package:hadirku_web/utils/common/responsive/responsive.dart';
 export 'package:hadirku_web/utils/common/responsive/space.dart';
 export 'package:hadirku_web/utils/common/side/side_menu.dart';
 export 'package:hadirku_web/utils/common/side/side_menu_item.dart';
+export 'package:hadirku_web/utils/common/side/side_menu_header.dart';
 export 'package:hadirku_web/utils/common/textfield/custom_layout_textformfield.dart';
 export 'package:hadirku_web/utils/common/textfield/custom_textformfield.dart';
 export 'package:hadirku_web/utils/common/popup/loaders.dart';

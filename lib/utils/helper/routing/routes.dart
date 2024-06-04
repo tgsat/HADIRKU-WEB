@@ -18,9 +18,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const LeaveScreen());
 
     default:
-      return _getPageRoute(Scaffold(
-        body: Center(child: Text('No route defined for ${settings.name}')),
-      ));
+      return _getPageRoute(const DashboardScreen());
   }
 }
 

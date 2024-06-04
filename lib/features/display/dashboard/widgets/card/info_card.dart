@@ -6,14 +6,12 @@ class InfoCard extends StatelessWidget {
   final String title;
   final String status;
   final String value;
-  final bool isActive;
   final Function() onTap;
 
   const InfoCard(
       {super.key,
       required this.title,
       required this.value,
-      this.isActive = false,
       required this.onTap,
       required this.status});
 
@@ -46,8 +44,7 @@ class InfoCard extends StatelessWidget {
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(top: BorderSide(color: color, width: 5)),
+              color: color.withOpacity(0.4),
               boxShadow: [
                 BoxShadow(
                   offset: const Offset(0, 6),
@@ -65,16 +62,12 @@ class InfoCard extends StatelessWidget {
                       TextSpan(
                         text: "$value\n",
                         style: GoogleFonts.poppins(
-                            fontSize: 40,
-                            color: isActive ? AppColor.active : AppColor.dark),
+                            fontSize: 30, color: AppColor.dark),
                       ),
                       TextSpan(
                         text: title,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: isActive
-                                ? AppColor.active
-                                : AppColor.lightGrey),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w400, color: AppColor.dark),
                       ),
                     ])),
                 Expanded(child: Container()),

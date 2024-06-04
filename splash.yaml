@@ -1,6 +1,0 @@
-flutter_native_splash:
-  color_web: "FFFFFF"
-  image_web: assets/images/logo.png
-
-  web: true
-

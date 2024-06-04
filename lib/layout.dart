@@ -11,7 +11,7 @@ class LayoutScreen extends StatelessWidget {
       key: scaffoldKey,
       extendBodyBehindAppBar: true,
       appBar: TopNavigatorMenu(keys: scaffoldKey),
-      drawer: const Drawer(child: SideMenu()),
+      drawer: const Drawer(width: 250, child: SideMenu()),
       body: ResponsiveWidget(
           largeScreen: const LargeScreen(),
           smallScreen: Padding(
