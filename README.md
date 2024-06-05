@@ -3,7 +3,8 @@
 A new Flutter project.
 
 ## Getting Started
-file:///home/ssatrio/Pictures/Screenshots/Screenshot%20from%202024-06-05%2021-14-35.png
+
+![Screenshot from 2024-06-05 21-14-35](https://github.com/tgsat/HADIRKU-WEB/assets/86815029/7a970540-db35-4a27-a4a1-d29fa8c9d570)
 ![photo_2024-05-26_13-41-57](https://github.com/tgsat/HADIRKU-WEB/assets/86815029/06f47449-4a04-4bbc-abdd-8d1ab537832f)
 ![photo_2024-05-26_13-41-54](https://github.com/tgsat/HADIRKU-WEB/assets/86815029/2625c33a-d887-4450-adb1-575c163ce0c9)
 ![photo_2024-05-26_13-41-52](https://github.com/tgsat/HADIRKU-WEB/assets/86815029/bbccce62-865b-42b0-84ac-c4badef86a06)
