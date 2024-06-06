@@ -8,7 +8,7 @@ import 'package:hadirku_web/data/endpoint/endpoint.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../models/personalization/user_model.dart';
+import '../../../features/personalization/models/user_model.dart';
 import '../authentication/authentication_repository.dart';
 
 class UserRepository extends GetxController {

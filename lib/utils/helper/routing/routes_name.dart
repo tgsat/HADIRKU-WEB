@@ -1,11 +1,3 @@
-//// [Leading Page] - Home
-const homeDisplayName = "Home";
-const initialRoute = "/";
-
-//// [Leading Page] - About
-const aboutDisplayName = "About";
-const aboutRoute = "/about";
-
 const dashboardDisplayName = "Dasboard";
 const dashboardRoute = "/dashboard";
 

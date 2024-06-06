@@ -34,7 +34,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppDrawerProvider()),
       ],
       child: GetMaterialApp(
-          initialRoute: initialRoute,
+          initialRoute: authSignInRoute,
           initialBinding: GeneralBindings(),
           getPages: AppRoutes.pages,
           unknownRoute: GetPage(

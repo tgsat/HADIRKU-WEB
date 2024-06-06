@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/repositories/personalization/user_repository.dart';
-import '../../../models/personalization/user_model.dart';
+import '../models/user_model.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
@@ -58,8 +58,7 @@ class UserController extends GetxController {
               email: userCredential.user!.email ?? '',
               phoneNumber: userCredential.user!.phoneNumber ?? '',
               profilePicture: userCredential.user!.photoURL ?? '',
-              bioData: '',
-              gender: '');
+              bioData: '');
 
           // save user data
           await userRepository.saveUserRecord(user);
@@ -176,25 +175,31 @@ class UserController extends GetxController {
   }
 
   logoutAccountWarningPopUp(Function() onTap) {
+    final theme = Theme.of(Get.context!).textTheme;
     Get.defaultDialog(
         contentPadding: const EdgeInsets.all(SizeConfig.md),
         title: Dictionary.logout,
+        titleStyle: theme.headlineSmall,
         middleText: Dictionary.logoutDescription,
+        middleTextStyle: theme.titleMedium,
         confirm: ElevatedButton(
             onPressed: onTap,
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 side: const BorderSide(color: Colors.red)),
-            child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.lg),
-                child: Text(Dictionary.logout))),
-        cancel: OutlinedButton(
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: SizeConfig.lg),
+                child: Text(Dictionary.logout,
+                    style: theme.titleMedium!.apply(color: Colors.white)))),
+        cancel: ElevatedButton(
             onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.black45,
-              textStyle: const TextStyle(color: Colors.black45),
-              side: const BorderSide(color: Colors.black45, width: 2),
-            ),
-            child: const Text(Dictionary.cancel)));
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                side: const BorderSide(color: Colors.black87)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SizeConfig.lg),
+              child: Text(Dictionary.cancel,
+                  style: theme.titleMedium!.apply(color: Colors.black87)),
+            )));
   }
 }

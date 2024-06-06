@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hadirku_web/data/endpoint/endpoint.dart';
+import 'package:hadirku_web/features/personalization/models/company_model.dart';
+import 'package:hadirku_web/features/personalization/models/roles_model.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +15,7 @@ class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
   final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   // Get Authenticated user data
   User? get authUser => _auth.currentUser;
@@ -26,6 +31,37 @@ class AuthenticationRepository extends GetxController {
     final user = _auth.currentUser;
     if (user != null) {
       Get.offAllNamed(dashboardRoute);
+    }
+  }
+
+  Future<void> saveCompanyRecord(CompanyModel comapny) async {
+    try {
+      await _db
+          .collection(Endpoint.company)
+          .doc(comapny.id)
+          .set(comapny.toJson());
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw Dictionary.somethingWentWrong;
+    }
+  }
+
+  Future<void> saveRolesRecord(RolesModel role) async {
+    try {
+      await _db.collection(Endpoint.roles).doc(role.id).set(role.toJson());
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw Dictionary.somethingWentWrong;
     }
   }
 

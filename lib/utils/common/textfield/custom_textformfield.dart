@@ -52,6 +52,7 @@ class CustomTextFormField extends StatelessWidget {
         textCapitalization: textCapitalization,
         autovalidateMode: (autovalidateMode != null) ? autovalidateMode : null,
         inputFormatters: inputFormatters,
+        style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: (title == "") ? "" : title,
           prefixIcon: (prefixIcon != null)

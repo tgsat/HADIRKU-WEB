@@ -7,10 +7,3 @@ Navigator localNavigator() => Navigator(
       onGenerateRoute: generateRoute,
       initialRoute: dashboardRoute,
     );
-
-/// [LandingPage]
-Navigator mainLocalNavigator() => Navigator(
-      key: navigationController.navigatorKey,
-      onGenerateRoute: mainGenerateRoute,
-      initialRoute: initialRoute,
-    );
