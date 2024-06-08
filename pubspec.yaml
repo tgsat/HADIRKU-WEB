@@ -44,13 +44,16 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   data_table_2: ^2.5.6
   flutter_svg: ^1.1.5
-  scrollable_positioned_list: ^0.3.5
   connectivity_plus: ^5.0.1
   image_picker: ^1.0.7
 
   # State Management
   get: ^4.6.5
   shared_preferences: ^2.2.2
+
+  # Product Specific
+  fast_cached_network_image: ^1.2.0
+  shimmer: ^3.0.0
 
   # Service
   provider: ^5.0.0

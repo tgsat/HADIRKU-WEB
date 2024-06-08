@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/repositories/personalization/user_repository.dart';
+import '../models/company_model.dart';
+import '../models/roles_model.dart';
 import '../models/user_model.dart';
 
 class UserController extends GetxController {
@@ -13,6 +15,8 @@ class UserController extends GetxController {
 
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
+  Rx<CompanyModel> company = CompanyModel.empty().obs;
+  RxList<RolesModel> allRole = <RolesModel>[].obs;
 
   final hidePassword = false.obs;
   final imageUploading = false.obs;
@@ -26,6 +30,8 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUserRecord();
+    fetchUserCompanyRecord();
+    fetchUserRolesRecord();
   }
 
   Future<void> fetchUserRecord() async {
@@ -38,6 +44,24 @@ class UserController extends GetxController {
       user(UserModel.empty());
     } finally {
       profileLoading.value = false;
+    }
+  }
+
+  Future<void> fetchUserCompanyRecord() async {
+    try {
+      final companyS = await userRepository.fetchUserCompany();
+      company(companyS);
+    } catch (e) {
+      company(CompanyModel.empty());
+    }
+  }
+
+  Future<void> fetchUserRolesRecord() async {
+    try {
+      final roles = await userRepository.fetchUserRoles();
+      allRole.assignAll(roles);
+    } catch (e) {
+      RolesModel.empty();
     }
   }
 

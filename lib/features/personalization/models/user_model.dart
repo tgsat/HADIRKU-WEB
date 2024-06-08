@@ -28,7 +28,6 @@ class UserModel {
         companyName: '',
         fullName: '',
         city: '',
-        roles: '',
         email: '',
         phoneNumber: '',
         profilePicture: '',

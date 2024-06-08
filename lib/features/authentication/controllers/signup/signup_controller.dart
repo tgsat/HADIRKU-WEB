@@ -19,6 +19,8 @@ class SignUpController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   final passwordConfirm = TextEditingController();
+  final authRepository = Get.put(AuthenticationRepository());
+  final userRepository = Get.put(UserRepository());
   GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   var uniqueKey = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -39,7 +41,7 @@ class SignUpController extends GetxController {
 
       final rolesS = RolesModel(
         id: uniqueKey,
-        roles: 'Super Admin',
+        roles: 'Administrasi',
         createAt: DateTime.now(),
       );
 
@@ -48,17 +50,14 @@ class SignUpController extends GetxController {
         companyName: companyS.id,
         fullName: name.text.trim(),
         city: city.text.trim(),
+        roles: rolesS.roles,
         email: email.text.trim(),
         phoneNumber: phone.text.trim(),
-        roles: rolesS.id,
         profilePicture: '',
         bioData: '',
       );
 
-      final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
-
-      final authRepository = Get.put(AuthenticationRepository());
       await authRepository.saveCompanyRecord(companyS);
       await authRepository.saveRolesRecord(rolesS);
 

@@ -54,68 +54,46 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
               ),
               onTap: () {}),
           const SizedBox(width: 6),
-          PopupMenuButton(
-            itemBuilder: (cxt) => [
-              PopupMenuItem<int>(
-                value: 0,
-                child: Text(
-                  'Edit Profile',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .apply(color: AppColor.darkerGrey),
+          UserProfileTile(
+            child: PopupMenuButton(
+              itemBuilder: (cxt) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text(
+                    'Edit Profile',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .apply(color: AppColor.darkerGrey),
+                  ),
                 ),
-              ),
-              PopupMenuItem<int>(
-                value: 1,
-                child: Text(
-                  'Keluar',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .apply(color: AppColor.darkerGrey),
-                ),
-              ),
-            ],
-            onSelected: (val) {
-              if (val == 0) {
-                debugPrint("Edit Profile menu is select $val.");
-              } else if (val == 1) {
-                debugPrint("Logout menu is select $val.");
-                controller.logoutAccountWarningPopUp(() {
-                  controller.authRepository.logout();
-                  Navigator.of(context).pop();
-                });
-              }
-            },
-            child: SvgPicture.asset(
-              AppIcons.user,
-              width: SizeConfig.dl,
-              color: AppColor.dark,
-            ),
-          ),
-          Visibility(
-            visible: !ResponsiveWidget.isSmallScreen(context),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(width: 6),
-                Obx(
-                  () {
-                    if (controller.profileLoading.value) {
-                      return Container();
-                    } else {
-                      return Text(controller.user.value.fullName,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .apply(color: AppColor.dark));
-                    }
-                  },
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Text(
+                    'Keluar',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .apply(color: AppColor.darkerGrey),
+                  ),
                 ),
               ],
+              onSelected: (val) {
+                if (val == 0) {
+                  debugPrint("Edit Profile menu is select $val.");
+                } else if (val == 1) {
+                  debugPrint("Logout menu is select $val.");
+                  controller.logoutAccountWarningPopUp(() {
+                    controller.authRepository.logout();
+                    Navigator.of(context).pop();
+                  });
+                }
+              },
+              child: SvgPicture.asset(
+                AppIcons.dropdown,
+                width: SizeConfig.md,
+                color: AppColor.dark,
+              ),
             ),
           ),
         ],

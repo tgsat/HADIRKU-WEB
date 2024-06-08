@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
+import '../../../features/personalization/controllers/user_controller.dart';
+
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userCont = Get.put(UserController());
     return Container(
       color: AppColor.white,
       child: ListView(
@@ -51,25 +54,56 @@ class SideMenu extends StatelessWidget {
               color: AppColor.dark.withOpacity(.1),
             ),
           const SideMenuHeader(title: 'Main Menu'),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: sideMainMenuItemRoutes
-                .map((item) => SideMenuItem(
-                    itemName: item.name,
-                    onTap: () {
-                      if (item.route == authenticationRoute) {
-                        Get.offAllNamed(authenticationRoute);
-                        menuController.changeActiveItemTo(dashboardDisplayName);
-                      }
-                      if (!menuController.isActive(item.name)) {
-                        menuController.changeActiveItemTo(item.name);
-                        if (ResponsiveWidget.isSmallScreen(context)) {
-                          Get.back();
-                        }
-                        navigationController.navigateTo(item.route);
-                      }
-                    }))
-                .toList(),
+          Obx(
+            () {
+              final role = userCont.user.value.roles;
+              if (role == 'Administrasi' || role == 'HRD') {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: sideMainMenuItemRoutes
+                      .map((item) => SideMenuItem(
+                          itemName: item.name,
+                          onTap: () {
+                            if (item.route == authenticationRoute) {
+                              Get.offAllNamed(authenticationRoute);
+                              menuController
+                                  .changeActiveItemTo(dashboardDisplayName);
+                            }
+                            if (!menuController.isActive(item.name)) {
+                              menuController.changeActiveItemTo(item.name);
+                              if (ResponsiveWidget.isSmallScreen(context)) {
+                                Get.back();
+                              }
+                              navigationController.navigateTo(item.route);
+                            }
+                          }))
+                      .toList(),
+                );
+              } else if (role == 'Staff') {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: sideMainMenuItemRoutes2
+                      .map((item) => SideMenuItem(
+                          itemName: item.name,
+                          onTap: () {
+                            if (item.route == authenticationRoute) {
+                              Get.offAllNamed(authenticationRoute);
+                              menuController
+                                  .changeActiveItemTo(staffingDisplayName);
+                            }
+                            if (!menuController.isActive(item.name)) {
+                              menuController.changeActiveItemTo(item.name);
+                              if (ResponsiveWidget.isSmallScreen(context)) {
+                                Get.back();
+                              }
+                              navigationController.navigateTo(item.route);
+                            }
+                          }))
+                      .toList(),
+                );
+              }
+              return Container();
+            },
           ),
           const SideMenuHeader(title: 'Account'),
           Column(

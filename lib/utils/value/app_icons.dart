@@ -4,6 +4,7 @@ class AppIcons {
 
   static const String logo = 'assets/images/logo.png';
   static const String mainLogo = 'assets/images/main-logo.png';
+  static const String noImage = 'assets/images/no-image.jpg';
 
   static const String add = 'assets/icons/add-outline.svg';
   static const String apps = 'assets/icons/apps-sharp.svg';
@@ -11,6 +12,8 @@ class AppIcons {
   static const String trash = 'assets/icons/close-outline.svg';
   static const String eyeShow = 'assets/icons/eye-outline.svg';
   static const String eyeHide = 'assets/icons/eye-off-outline.svg';
+  static const String userEdit = 'assets/icons/user-edit.svg';
+  static const String dropdown = 'assets/icons/chevron-down-outline.svg';
   static const String dashboard = 'assets/icons/speedometer-outline.svg';
   static const String staffing = 'assets/icons/people-outline.svg';
   static const String permission = 'assets/icons/document-outline.svg';

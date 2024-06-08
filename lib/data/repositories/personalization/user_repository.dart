@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/data/endpoint/endpoint.dart';
+import 'package:hadirku_web/features/personalization/models/company_model.dart';
+import 'package:hadirku_web/features/personalization/models/roles_model.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -135,6 +137,45 @@ class UserRepository extends GetxController {
       await upload.putFile(File(image.path));
       final url = await upload.getDownloadURL();
       return url;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw Dictionary.somethingWentWrong;
+    }
+  }
+
+  /// [GetCompanyUser] by uid
+  Future<CompanyModel> fetchUserCompany() async {
+    try {
+      final doc = await _db
+          .collection(Endpoint.company)
+          .doc(AuthenticationRepository.instance.authUser?.uid)
+          .get();
+      if (doc.exists) {
+        return CompanyModel.fromSnapshot(doc);
+      } else {
+        return CompanyModel.empty();
+      }
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw Dictionary.somethingWentWrong;
+    }
+  }
+
+  /// [GetRolesUser] by uid
+  Future<List<RolesModel>> fetchUserRoles() async {
+    try {
+      final ok = await _db.collection(Endpoint.roles).get();
+      return ok.docs.map((doc) => RolesModel.fromSnapshot(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on FormatException catch (_) {

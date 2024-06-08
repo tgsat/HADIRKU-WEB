@@ -57,6 +57,11 @@ List<MenuItem> sideMainMenuItemRoutes = [
   MenuItem(permissionDisplayName, permissionRoute),
 ];
 
+List<MenuItem> sideMainMenuItemRoutes2 = [
+  MenuItem(staffingDisplayName, staffingRoute),
+  MenuItem(permissionDisplayName, permissionRoute),
+];
+
 List<MenuItem> sideAccountMenuItemRoutes = [
   MenuItem(authenticationDisplayName, authenticationRoute),
 ];
