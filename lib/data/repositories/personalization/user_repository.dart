@@ -18,6 +18,7 @@ class UserRepository extends GetxController {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final Reference storage = FirebaseStorage.instance.ref();
+  var uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
 
   /// Function to save user data to firebase.
   Future<void> saveUserRecord(UserModel user) async {
@@ -93,6 +94,26 @@ class UserRepository extends GetxController {
     }
   }
 
+  Future<void> updateChildSingleField(
+      String endPoint, Map<String, dynamic> json) async {
+    try {
+      await _db
+          .collection(Endpoint.users)
+          .doc(AuthenticationRepository.instance.authUser?.uid)
+          .collection(endPoint)
+          .doc(uniqueId)
+          .update(json);
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw Dictionary.somethingWentWrong;
+    }
+  }
+
   // Fuction to remove user data from firebase
   Future<void> removeUserRecord(String userId) async {
     try {
@@ -131,10 +152,13 @@ class UserRepository extends GetxController {
     }
   }
 
-  Future<String> uploadUserImage(XFile image, String userID) async {
+  Future<String> uploadUserImage(Uint8List fileBytes, String fileName) async {
     try {
-      final upload = storage.child("Users/Images/Profile/Me/$userID.png");
-      await upload.putFile(File(image.path));
+      final upload =
+          storage.child("Users").child('Profile').child('/$fileName');
+
+      final metadata = SettableMetadata(contentType: 'images/jpeg');
+      await upload.putData(fileBytes, metadata).whenComplete(() => null);
       final url = await upload.getDownloadURL();
       return url;
     } on FirebaseException catch (e) {

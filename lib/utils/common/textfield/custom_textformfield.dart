@@ -5,7 +5,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? title;
   final TextEditingController? controller;
   final IconData? prefixIcon, suffixIcon;
-  final bool isObscure, expands, readOnly;
+  final bool isObscure, expands, readOnly, isDense;
   final int maxLines;
   final int? maxLength;
   final dynamic validate;
@@ -23,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.isObscure = false,
     this.expands = false,
+    this.isDense = false,
     this.readOnly = false,
     this.maxLines = 1,
     this.maxLength,
@@ -54,6 +55,7 @@ class CustomTextFormField extends StatelessWidget {
         inputFormatters: inputFormatters,
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
+          isDense: isDense,
           hintText: (title == "") ? "" : title,
           prefixIcon: (prefixIcon != null)
               ? Icon(prefixIcon, color: Colors.black54)

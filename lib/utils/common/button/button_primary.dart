@@ -17,6 +17,11 @@ class ButtonPrimary extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(onPressed: onTap, child: Text(title)),
           )
-        : ElevatedButton(onPressed: onTap, child: Text(title));
+        : ElevatedButton(
+            onPressed: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(title),
+            ));
   }
 }

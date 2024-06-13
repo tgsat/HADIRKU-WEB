@@ -12,6 +12,8 @@ class Dictionary {
   static const String passwordConfirm = "Konfirmasi Password";
   static const String companyName = "Nama Perusahaan";
   static const String fullName = "Nama Lengkap";
+  static const String name = "Nama";
+  static const String bio = "Deskripsi";
   static const String noHP = "Nomor HP/WA";
   static const String city = "Kota/Kabupaten";
   static const String forgetPassword = "Lupa Password";
@@ -38,6 +40,7 @@ class Dictionary {
   static const String dontHaveAccount = "Belum punya akun? ";
 
   static const String oops = "Oops!";
+  static const String cannotUpdate = "Gagal Update";
   static const String congratulations = "Yeay";
   static const String congratulationsDes =
       "Akun Anda telah dibuat! verifikasi email untuk melanjutkan.";
@@ -51,6 +54,9 @@ class Dictionary {
   static const String dataNotSaveDes =
       "Terjadi masalah saat menyimpan informasi. Anda dapat menyimpan kembali data Anda di profil Anda.";
   static const String delete = "Hapus";
+  static const String add = "Tambah";
+  static const String update = "Update";
+  static const String updateImage = "Update Foto";
   static const String deleteAccount = "Hapus Akun";
   static const String deleteDescription =
       "Apakah kamu yakin ingin menghapus akun secara permanen?. Tindakan ini tidak dapat dibatalkan dan semua data kamu akan dihapus secara permanen.";
@@ -58,4 +64,26 @@ class Dictionary {
   static const String emailSent = "Email terkirim";
   static const String emailSentDes =
       "Tautan Email Dikirim untuk Mengatur Ulang Kata Sandi Anda";
+  static const String signupInfo =
+      "Pastikan kamu menggunakan alamat email pribadi, agar kamu dapat melakukan verifikasi email nantinya.";
+
+  /// [Profile]
+  static const String activity = "Aktivity";
+  static const String account = "Akun";
+  static const String accountDescription = "Akun berhasil diupdate";
+  static const String profileDescription = "Profile berhasil diupdate";
+  static const String editProfile = "Edit Profile";
+  static const String changePassword = "Ganti Password";
+  static const String socialMedia = "Sosial Media";
+  static const String nonActiveAccount = "Non-Aktifkan Akun";
+
+  static const String gender = "Jenis Kelamin";
+  static const String status = "Status";
+  static const String religius = "Agama";
+  static const String golda = "Golongan Darah";
+  static const String nomorKTP = "Nomor KTP";
+  static const String nomorKK = "Nomor KK";
+  static const String tmpTinggal = "Tempat Tinggal";
+  static const String tmpTinggalFull = "Tempat Tinggal Lengkap";
+  static const String nomorKartuKeluarga = "Nomor Kartu Keluarga";
 }

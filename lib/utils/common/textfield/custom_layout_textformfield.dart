@@ -5,11 +5,14 @@ class CustomLayoutTextFormField extends StatelessWidget {
   final String title;
   final Widget child;
   final bool isScreen;
-  const CustomLayoutTextFormField(
-      {super.key,
-      required this.title,
-      required this.child,
-      this.isScreen = false});
+  final int rightFlex;
+  const CustomLayoutTextFormField({
+    super.key,
+    required this.title,
+    required this.child,
+    this.isScreen = false,
+    this.rightFlex = 3,
+  });
 
   static Widget isSmallLayout(
       BuildContext context, String title, Widget child) {
@@ -24,12 +27,12 @@ class CustomLayoutTextFormField extends StatelessWidget {
   }
 
   static Widget isLargeLayout(
-      BuildContext context, String title, Widget child) {
+      BuildContext context, String title, int rightFlex, Widget child) {
     return Row(
       children: [
         Expanded(flex: 1, child: SectionTile(title: title)),
         const SizedBox(width: 10),
-        Expanded(flex: 3, child: child),
+        Expanded(flex: rightFlex, child: child),
       ],
     );
   }
@@ -37,7 +40,7 @@ class CustomLayoutTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isScreen
-        ? isLargeLayout(context, title, child)
+        ? isLargeLayout(context, title, rightFlex, child)
         : isSmallLayout(context, title, child);
   }
 }

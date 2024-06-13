@@ -127,6 +127,31 @@ class SignUpForm extends StatelessWidget {
             title: Dictionary.signup,
             onTap: () => controller.signup(),
           ),
+          const SizedBox(height: SizeConfig.md),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border.all(color: AppColor.darkGrey),
+                borderRadius: BorderRadius.circular(8)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(AppIcons.info,
+                    width: SizeConfig.dl,
+                    height: SizeConfig.dl,
+                    color: AppColor.darkGrey),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(Dictionary.signupInfo,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(color: AppColor.darkGrey, height: 1.2)),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

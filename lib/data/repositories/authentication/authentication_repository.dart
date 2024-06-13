@@ -16,6 +16,7 @@ class AuthenticationRepository extends GetxController {
 
   final _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  var uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
 
   // Get Authenticated user data
   User? get authUser => _auth.currentUser;

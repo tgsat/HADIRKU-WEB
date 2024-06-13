@@ -2,10 +2,10 @@ const dashboardDisplayName = "Dasboard";
 const dashboardRoute = "/dashboard";
 
 const staffingDisplayName = "Pegawai";
-const staffingRoute = "/dashboard/staffing";
+const staffingRoute = "/pegawai";
 
 const permissionDisplayName = "Ijin/Cuti";
-const permissionRoute = "/dashboard/leave";
+const permissionRoute = "/cuti-ijin";
 
 const salaryDisplayName = "Slip Gaji";
 const salaryRoute = "/dashboard/salary";
@@ -16,31 +16,43 @@ const presenceRoute = "/dashboard/presence";
 const taskDisplayName = "Tugas";
 const taskRoute = "/dashboard/tugas";
 
-// Report
+/// [Report]
 const reportDisplayName = "Laporan";
 const reportRoute = "/laporan";
-// Report-Presence
+
+/// [ReportPresence]
 const reportPresenceDisplayName = "Laporan/Absensi";
 const reportPresenceRoute = "/laporan/Absensi";
-// Report-Salary
+
+/// [ReportSalary]
 const reportSalaryDisplayName = "Laporan/Gaji";
 const reportSalaryRoute = "/laporan/gaji";
-// Report-Permission
+
+/// [ReportPermission]
 const reportPermissionDisplayName = "Laporan/Ijin & Cuti";
 const reportPermissionRoute = "/laporan/ijin-cuti";
-// Report-Permission
+
+/// [ReportPermission]
 const reportStaffingDisplayName = "Laporan/Kepegawaian";
 const reportStaffingRoute = "/laporan/kepegawaian";
-// Log Out
+
+/// [Profile]
+const profileDisplayName = "Profile";
+const profileRoute = "/profile";
+
+/// [LogOut]
 const authenticationDisplayName = "Setting";
 const authenticationRoute = "/auth";
-// Sig In
+
+/// [SigIn]
 const authSignInDisplayName = "Masuk";
 const authSignInRoute = "/auth/login";
-// SignUp
+
+/// [SignUp]
 const authSignUpDisplayName = "Daftar";
 const authSignUpRoute = "/auth/register";
-// Forget Password
+
+/// [ForgetPassword]
 const authForgetPasswordDisplayName = "Lupa Password";
 const authForgetPasswordRoute = "/auth/forget-password";
 
@@ -64,4 +76,5 @@ List<MenuItem> sideMainMenuItemRoutes2 = [
 
 List<MenuItem> sideAccountMenuItemRoutes = [
   MenuItem(authenticationDisplayName, authenticationRoute),
+  MenuItem(profileDisplayName, profileRoute),
 ];

@@ -7,9 +7,9 @@ class AppIcons {
   static const String noImage = 'assets/images/no-image.jpg';
 
   static const String add = 'assets/icons/add-outline.svg';
+  static const String info = 'assets/icons/information-circle-outline.svg';
   static const String apps = 'assets/icons/apps-sharp.svg';
   static const String close = 'assets/icons/close-outline.svg';
-  static const String trash = 'assets/icons/close-outline.svg';
   static const String eyeShow = 'assets/icons/eye-outline.svg';
   static const String eyeHide = 'assets/icons/eye-off-outline.svg';
   static const String userEdit = 'assets/icons/user-edit.svg';
@@ -20,7 +20,8 @@ class AppIcons {
   static const String settings = 'assets/icons/settings-outline.svg';
   static const String notification = 'assets/icons/notifications-outline.svg';
   static const String user = 'assets/icons/person-outline.svg';
-  static const String logout = 'assets/icons/trash-outline.svg';
+  static const String trash = 'assets/icons/trash-outline.svg';
+  static const String logout = 'assets/icons/log-out-outline.svg';
 
   static const String wifi = 'assets/icons/wifi-outline.svg';
   static const String check = 'assets/icons/checkmark-done.svg';

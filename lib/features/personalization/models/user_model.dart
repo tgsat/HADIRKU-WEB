@@ -9,6 +9,7 @@ class UserModel {
   final String email;
   String phoneNumber;
   String profilePicture;
+  String profileName;
   String bioData;
 
   UserModel({
@@ -20,6 +21,7 @@ class UserModel {
     required this.email,
     required this.phoneNumber,
     required this.profilePicture,
+    required this.profileName,
     required this.bioData,
   });
 
@@ -31,6 +33,7 @@ class UserModel {
         email: '',
         phoneNumber: '',
         profilePicture: '',
+        profileName: '',
         bioData: '',
       );
 
@@ -43,6 +46,7 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
+      'ProfileName': profileName,
       'Bio': bioData,
     };
   }
@@ -60,6 +64,7 @@ class UserModel {
         email: data['Email'] ?? '',
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
+        profileName: data['ProfileName'] ?? '',
         bioData: data['Bio'] ?? '',
       );
     } else {

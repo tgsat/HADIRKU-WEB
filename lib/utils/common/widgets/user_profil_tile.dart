@@ -20,11 +20,11 @@ class UserProfileTile extends StatelessWidget {
           final networkImg = controller.user.value.profilePicture;
           final img = networkImg.isNotEmpty ? networkImg : AppIcons.noImage;
           return controller.imageUploading.value
-              ? const ShimmerEffect(width: 42, height: 42, radius: 42)
+              ? const ShimmerEffect(width: 35, height: 35, radius: 35)
               : CircuralImage(
                   img: img,
-                  height: 42,
-                  width: 42,
+                  height: 35,
+                  width: 35,
                   padding: 0,
                   isNetworkImg: networkImg.isNotEmpty,
                 );

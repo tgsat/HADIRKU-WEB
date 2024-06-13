@@ -1,8 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hadirku_web/features/personalization/models/profile_model.dart';
 import 'package:hadirku_web/utils/utils.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/repositories/personalization/user_repository.dart';
@@ -14,7 +16,15 @@ class UserController extends GetxController {
   static UserController get instance => Get.find();
 
   final profileLoading = false.obs;
+  RxInt selectedGender = 0.obs;
+  RxInt selectedStatus = 0.obs;
+  RxInt selectedReligius = 0.obs;
+  RxInt selectedGolda = 0.obs;
+  String fileName = '';
+  Uint8List? fileBytes;
+
   Rx<UserModel> user = UserModel.empty().obs;
+  Rx<ProfileModel> profile = ProfileModel.empty().obs;
   Rx<CompanyModel> company = CompanyModel.empty().obs;
   RxList<RolesModel> allRole = <RolesModel>[].obs;
 
@@ -22,8 +32,20 @@ class UserController extends GetxController {
   final imageUploading = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
+
+  final noKTPCont = TextEditingController();
+  final noKKCont = TextEditingController();
+  final addressCont = TextEditingController();
+  final addressFullCont = TextEditingController();
+  final heightCont = TextEditingController();
+  final weightCont = TextEditingController();
+
   final userRepository = Get.put(UserRepository());
   final authRepository = Get.put(AuthenticationRepository());
+
+  GlobalKey<FormState> accountKey = GlobalKey<FormState>();
+  GlobalKey<FormState> editProfileKey = GlobalKey<FormState>();
+  GlobalKey<FormState> changePasswordKey = GlobalKey<FormState>();
   GlobalKey<FormState> reAuthFromKey = GlobalKey<FormState>();
 
   @override
@@ -32,6 +54,71 @@ class UserController extends GetxController {
     fetchUserRecord();
     fetchUserCompanyRecord();
     fetchUserRolesRecord();
+  }
+
+  Future<void> addOrUpdateAccount(
+      {required String name, required String bio}) async {
+    try {
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        return;
+      }
+
+      if (!accountKey.currentState!.validate()) {
+        return;
+      }
+
+      var isAccount = {
+        'FullName': name,
+        'Bio': bio,
+      };
+      await userRepository.updateSingleField(isAccount);
+
+      Loaders.successSnackBar(
+          title: Dictionary.congratulations,
+          message: Dictionary.accountDescription);
+
+      user.refresh();
+      // Get.off(() => const ProfileScreen());
+    } catch (e) {
+      Loaders.errorSnackBar(
+          title: Dictionary.oops,
+          message: '${Dictionary.cannotUpdate} Akun, ${e.toString()}');
+    }
+  }
+
+  Future<void> addOrUpdateProfile() async {
+    try {
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        return;
+      }
+
+      if (!editProfileKey.currentState!.validate()) {
+        return;
+      }
+
+      final profile = ProfileModel(
+          id: authRepository.uniqueId,
+          ktp: noKTPCont.text.trim(),
+          kk: noKKCont.text.trim(),
+          gender: selectedGender.value,
+          status: selectedStatus.value,
+          religius: selectedReligius.value,
+          golda: selectedGolda.value,
+          updateAt: DateTime.now());
+      await userRepository.updateChildSingleField('Profile', profile.toJson());
+
+      Loaders.successSnackBar(
+          title: Dictionary.congratulations,
+          message: Dictionary.profileDescription);
+
+      // Get.off(() => const ProfileScreen());
+    } catch (e) {
+      Loaders.errorSnackBar(
+          title: Dictionary.oops,
+          message: '${Dictionary.cannotUpdate} Edit Profile, ${e.toString()}');
+    }
   }
 
   Future<void> fetchUserRecord() async {
@@ -82,6 +169,7 @@ class UserController extends GetxController {
               email: userCredential.user!.email ?? '',
               phoneNumber: userCredential.user!.phoneNumber ?? '',
               profilePicture: userCredential.user!.photoURL ?? '',
+              profileName: '',
               bioData: '');
 
           // save user data
@@ -162,28 +250,26 @@ class UserController extends GetxController {
 
   uploadUserProfilePicture() async {
     try {
-      final image = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-        maxHeight: 500,
-        maxWidth: 500,
-        imageQuality: 70,
+      var result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'jpeg', 'png'],
       );
 
-      if (image != null) {
+      if (result != null) {
         imageUploading.value = true;
-        // Upload image
-        // final imageUrl = await userRepository.uploadImage(
-        //     'Users/Images/Profile/${AuthenticationRepository.instance.authUser?.uid}/',
-        //     image);
+        fileBytes = result.files.first.bytes;
+        fileName = result.files.first.name;
 
-        final imageUrl = await userRepository.uploadUserImage(
-            image, AuthenticationRepository.instance.authUser?.uid ?? '');
+        final fileUrl =
+            await userRepository.uploadUserImage(fileBytes!, fileName);
 
-        // Update User Image Record
-        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
+        Map<String, dynamic> json = {
+          'ProfilePicture': fileUrl,
+          'ProfileName': fileName,
+        };
         await userRepository.updateSingleField(json);
 
-        user.value.profilePicture = imageUrl;
+        user.value.profilePicture = fileUrl;
         user.refresh();
 
         Loaders.successSnackBar(
@@ -191,8 +277,7 @@ class UserController extends GetxController {
             message: Dictionary.yourProfileImgUpdate);
       }
     } catch (e) {
-      Loaders.errorSnackBar(
-          title: Dictionary.oops, message: 'Something went wrong: $e');
+      Loaders.errorSnackBar(title: Dictionary.oops, message: e.toString());
     } finally {
       imageUploading.value = false;
     }

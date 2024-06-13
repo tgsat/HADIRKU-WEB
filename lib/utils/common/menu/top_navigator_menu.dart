@@ -59,30 +59,26 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
               itemBuilder: (cxt) => [
                 PopupMenuItem<int>(
                   value: 0,
-                  child: Text(
-                    'Edit Profile',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .apply(color: AppColor.darkerGrey),
-                  ),
-                ),
-                PopupMenuItem<int>(
-                  value: 1,
-                  child: Text(
-                    'Keluar',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .apply(color: AppColor.darkerGrey),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        AppIcons.logout,
+                        width: SizeConfig.dl,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Logout',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .apply(color: AppColor.darkerGrey),
+                      ),
+                    ],
                   ),
                 ),
               ],
               onSelected: (val) {
                 if (val == 0) {
-                  debugPrint("Edit Profile menu is select $val.");
-                } else if (val == 1) {
-                  debugPrint("Logout menu is select $val.");
                   controller.logoutAccountWarningPopUp(() {
                     controller.authRepository.logout();
                     Navigator.of(context).pop();

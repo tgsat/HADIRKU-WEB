@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../features/display/dashboard/dashboard.dart';
 import '../../../features/display/leave/leave.dart';
 import '../../../features/display/staffing/staffing.dart';
+import '../../../features/personalization/screens/widgets/profile_large.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -15,6 +16,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const StaffingScreen());
     case permissionRoute:
       return _getPageRoute(const LeaveScreen());
+    case profileRoute:
+      return _getPageRoute(const ProfileLargeScreen());
 
     default:
       return _getPageRoute(const DashboardScreen());

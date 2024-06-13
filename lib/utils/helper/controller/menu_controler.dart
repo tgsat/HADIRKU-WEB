@@ -30,6 +30,8 @@ class MenuController extends GetxController {
         return _customIcon(AppIcons.permission, itemName);
       case authenticationDisplayName:
         return _customIcon(AppIcons.settings, itemName);
+      case profileDisplayName:
+        return _customIcon(AppIcons.user, itemName);
       default:
         return _customIcon(AppIcons.dashboard, itemName);
     }

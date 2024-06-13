@@ -9,6 +9,7 @@ class CircuralImage extends StatelessWidget {
   final bool isNetworkImg;
   final Color? overlayColor, backgroundColor;
   final BoxFit? fit;
+  final double radius;
   const CircuralImage({
     super.key,
     this.height = 56,
@@ -19,6 +20,7 @@ class CircuralImage extends StatelessWidget {
     this.overlayColor,
     this.backgroundColor,
     this.fit = BoxFit.cover,
+    this.radius = 100,
   });
 
   @override
@@ -29,7 +31,7 @@ class CircuralImage extends StatelessWidget {
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
           color: backgroundColor ?? AppColor.white,
-          borderRadius: BorderRadius.circular(100)),
+          borderRadius: BorderRadius.circular(radius)),
       child: Center(
         child: ClipOval(
           child: isNetworkImg
@@ -41,8 +43,8 @@ class CircuralImage extends StatelessWidget {
                     fit: fit,
                     errorBuilder: (context, exception, stacktrace) =>
                         SvgPicture.asset(AppIcons.error),
-                    loadingBuilder: (context, progress) =>
-                        const ShimmerEffect(width: 55, height: 55, radius: 55),
+                    loadingBuilder: (context, progress) => ShimmerEffect(
+                        width: width, height: height, radius: radius),
                   ),
                 )
               : Image(

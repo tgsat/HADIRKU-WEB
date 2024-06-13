@@ -46,6 +46,7 @@ dependencies:
   flutter_svg: ^1.1.5
   connectivity_plus: ^5.0.1
   image_picker: ^1.0.7
+  file_picker: ^7.0.2
 
   # State Management
   get: ^4.6.5
@@ -54,6 +55,7 @@ dependencies:
   # Product Specific
   fast_cached_network_image: ^1.2.0
   shimmer: ^3.0.0
+  flutter_spinkit: ^5.2.1
 
   # Service
   provider: ^5.0.0
