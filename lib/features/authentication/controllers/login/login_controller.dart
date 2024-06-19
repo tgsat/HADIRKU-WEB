@@ -51,6 +51,7 @@ class LoginController extends GetxController {
 
       await AuthenticationRepository.instance
           .loginWithEmailPassword(email.text.trim(), password.text.trim());
+      Center(child: CustomLoading.spinKitThreeBounce());
 
       AuthenticationRepository.instance.screenRedirect();
     } catch (e) {

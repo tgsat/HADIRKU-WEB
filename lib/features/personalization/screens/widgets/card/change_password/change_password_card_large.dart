@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
 import '../../../../controllers/user_controller.dart';
@@ -14,158 +16,94 @@ class ChangePasswordCardLarge extends StatefulWidget {
 
 class _ChangePasswordCardLargeState extends State<ChangePasswordCardLarge> {
   final controller = UserController.instance;
-  final name = TextEditingController();
-  final email = TextEditingController();
-  final bio = TextEditingController();
-
-  @override
-  void initState() {
-    name.text = controller.user.value.fullName;
-    email.text = controller.user.value.email;
-    bio.text = controller.user.value.bioData;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return ProfileHeaderCard(
-      label: Dictionary.profile,
+      button: ButtonAdittional(
+        title: Dictionary.save,
+        onTap: () => controller.reAuthChangePasswordUser(),
+      ),
+      label: Dictionary.updatePassword,
       child: Form(
         key: controller.changePasswordKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomLayoutTextFormField(
-                        title: Dictionary.name,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          controller: name,
-                          validate: (value) => Validator.validateEmptyText(
-                              Dictionary.name, value),
-                        ),
-                      ),
-                      const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.email,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          controller: email,
-                          readOnly: true,
-                          textInputType: TextInputType.emailAddress,
-                          validate: (value) => Validator.validateEmail(value),
-                        ),
-                      ),
-                      const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.bio,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          maxLines: 3,
-                          maxLength: 150,
-                          controller: bio,
-                          isDense: true,
-                          textInputType: TextInputType.multiline,
-                        ),
-                      ),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.name,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          controller: name,
-                          validate: (value) => Validator.validateEmptyText(
-                              Dictionary.name, value),
-                        ),
-                      ),
-                      const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.email,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          controller: email,
-                          readOnly: true,
-                          textInputType: TextInputType.emailAddress,
-                          validate: (value) => Validator.validateEmail(value),
-                        ),
-                      ),
-                      const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.bio,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          maxLines: 3,
-                          maxLength: 150,
-                          controller: bio,
-                          isDense: true,
-                          textInputType: TextInputType.multiline,
-                        ),
-                      ),
-                    ],
+            Obx(
+              () => CustomLayoutTextFormField(
+                title: "${Dictionary.password} Lama",
+                isScreen: true,
+                rightFlex: 5,
+                child: CustomTextFormField(
+                  title: Dictionary.password,
+                  controller: controller.oldPassword,
+                  isObscure: controller.hideOldPassword.value,
+                  validate: (value) =>
+                      Validator.validatePassword(Dictionary.password, value),
+                  suffixIconWidget: IconButton(
+                    onPressed: () => controller.hideOldPassword.value =
+                        !controller.hideOldPassword.value,
+                    icon: SvgPicture.asset(
+                        controller.hideOldPassword.value
+                            ? AppIcons.eyeHide
+                            : AppIcons.eyeShow,
+                        color: AppColor.darkGrey),
                   ),
                 ),
-                const SizedBox(width: SizeConfig.spaceBtwInputFiels),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomLayoutTextFormField(
-                        title: Dictionary.name,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          controller: name,
-                          validate: (value) => Validator.validateEmptyText(
-                              Dictionary.name, value),
-                        ),
-                      ),
-                      const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.email,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          controller: email,
-                          readOnly: true,
-                          textInputType: TextInputType.emailAddress,
-                          validate: (value) => Validator.validateEmail(value),
-                        ),
-                      ),
-                      const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-                      CustomLayoutTextFormField(
-                        title: Dictionary.bio,
-                        isScreen: true,
-                        rightFlex: 5,
-                        child: CustomTextFormField(
-                          maxLines: 3,
-                          maxLength: 150,
-                          controller: bio,
-                          isDense: true,
-                          textInputType: TextInputType.multiline,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
             const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-            ButtonPrimary(
-              title: Dictionary.update,
-              isCustom: false,
-              onTap: () {},
+            Obx(
+              () => CustomLayoutTextFormField(
+                title: "${Dictionary.password} Baru",
+                isScreen: true,
+                rightFlex: 5,
+                child: CustomTextFormField(
+                  title: Dictionary.password,
+                  controller: controller.verifyPassword,
+                  isObscure: controller.hidePassword.value,
+                  validate: (value) => Validator.validatePasswordOld(
+                      "${Dictionary.password} Baru",
+                      value,
+                      controller.oldPassword.text),
+                  suffixIconWidget: IconButton(
+                    onPressed: () => controller.hidePassword.value =
+                        !controller.hidePassword.value,
+                    icon: SvgPicture.asset(
+                        controller.hidePassword.value
+                            ? AppIcons.eyeHide
+                            : AppIcons.eyeShow,
+                        color: AppColor.darkGrey),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: SizeConfig.spaceBtwInputFiels),
+            Obx(
+              () => CustomLayoutTextFormField(
+                title: "Ulang ${Dictionary.password} Baru",
+                isScreen: true,
+                rightFlex: 5,
+                child: CustomTextFormField(
+                  title: "Ulang ${Dictionary.password}",
+                  controller: controller.verifyPasswordConfirm,
+                  isObscure: controller.hideConfirmPassword.value,
+                  validate: (value) => Validator.validatePasswordConfirm(
+                      "Ulang ${Dictionary.password}",
+                      value,
+                      controller.verifyPassword.text),
+                  suffixIconWidget: IconButton(
+                    onPressed: () => controller.hideConfirmPassword.value =
+                        !controller.hideConfirmPassword.value,
+                    icon: SvgPicture.asset(
+                        controller.hideConfirmPassword.value
+                            ? AppIcons.eyeHide
+                            : AppIcons.eyeShow,
+                        color: AppColor.darkGrey),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

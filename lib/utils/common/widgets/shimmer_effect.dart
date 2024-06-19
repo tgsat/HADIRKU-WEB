@@ -9,7 +9,7 @@ class ShimmerEffect extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
-    this.radius = 15,
+    this.radius = 100,
     this.color,
   });
 
@@ -27,5 +27,25 @@ class ShimmerEffect extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class NormalShimmerEffect extends StatelessWidget {
+  final bool normal;
+  const NormalShimmerEffect({super.key, this.normal = true});
+
+  @override
+  Widget build(BuildContext context) {
+    return ShimmerEffect(
+        height: normal ? 48 : 88, width: double.infinity, radius: 8);
+  }
+}
+
+class SosmedShimmerEffect extends StatelessWidget {
+  const SosmedShimmerEffect({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const ShimmerEffect(height: 48, width: double.infinity, radius: 8);
   }
 }

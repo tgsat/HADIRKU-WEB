@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
 import 'widgets/signup_form.dart';
@@ -11,6 +10,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ButtonFocusScope(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: CenterMenuWidget(
           isCenter: !ResponsiveWidget.isSmallScreen(context),
           child: SingleChildScrollView(
@@ -28,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
         bottomNavigationBar: BottomNavigationAuth(
             title: Dictionary.alreadyHaveAccount,
             subTitle: Dictionary.login,
-            onTap: () => Get.toNamed(authSignInRoute)),
+            onTap: () => HelperFunction.navigatePushToNamed(authSignInRoute)),
       ),
     );
   }

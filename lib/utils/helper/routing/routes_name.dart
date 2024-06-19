@@ -39,10 +39,15 @@ const reportStaffingRoute = "/laporan/kepegawaian";
 /// [Profile]
 const profileDisplayName = "Profile";
 const profileRoute = "/profile";
+const profileAccountRoute = "/profile/Account";
+const profileChangePassRoute = "/profile/change-password";
 
 /// [LogOut]
 const authenticationDisplayName = "Setting";
 const authenticationRoute = "/auth";
+
+/// [ReAuth]
+const reAuthRoute = "/re-auth";
 
 /// [SigIn]
 const authSignInDisplayName = "Masuk";

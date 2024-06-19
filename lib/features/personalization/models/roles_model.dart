@@ -2,19 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RolesModel {
   String id;
-  String roles;
-  DateTime? createAt;
+  String name;
+  int level;
 
   RolesModel({
     required this.id,
-    required this.roles,
-    this.createAt,
+    required this.name,
+    required this.level,
   });
 
-  static RolesModel empty() => RolesModel(id: '', roles: '');
+  static RolesModel empty() => RolesModel(id: '', name: 'Admin', level: 1);
 
   toJson() {
-    return {"ID": id, "Roles": roles, "CreateAt": createAt};
+    return {"ID": id, "Name": name, "Level": level};
   }
 
   factory RolesModel.fromJson(Map<String, dynamic> document) {
@@ -22,8 +22,8 @@ class RolesModel {
     if (data.isEmpty) return RolesModel.empty();
     return RolesModel(
       id: data['Id'] ?? '',
-      roles: data['Roles'] ?? '',
-      createAt: data['CreateAt'] ?? DateTime.now(),
+      name: data['Name'] ?? 'Admin',
+      level: data['Level'] ?? 1,
     );
   }
 
@@ -33,8 +33,8 @@ class RolesModel {
       final data = document.data()!;
       return RolesModel(
         id: document.id,
-        roles: data['Roles'] ?? '',
-        createAt: (data['CreateAt'] as Timestamp).toDate(),
+        name: data['Name'] ?? '',
+        level: data['Level'] as int,
       );
     } else {
       return RolesModel.empty();

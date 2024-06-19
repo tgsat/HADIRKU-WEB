@@ -32,6 +32,11 @@ class _EditProfileCardLargeState extends State<EditProfileCardLarge> {
   @override
   Widget build(BuildContext context) {
     return ProfileHeaderCard(
+      button: ButtonPrimary(
+        title: Dictionary.update,
+        isCustom: false,
+        onTap: () {},
+      ),
       label: Dictionary.profile,
       child: Form(
         child: Column(
@@ -130,12 +135,6 @@ class _EditProfileCardLargeState extends State<EditProfileCardLarge> {
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: SizeConfig.spaceBtwInputFiels),
-            ButtonPrimary(
-              title: Dictionary.update,
-              isCustom: false,
-              onTap: () {},
             ),
           ],
         ),

@@ -3,6 +3,8 @@ import 'package:hadirku_web/utils/utils.dart';
 
 import 'widgets/card/account/account_card_large.dart';
 import 'widgets/card/change_password/change_password_card_large.dart';
+import 'widgets/card/non_active_account/non_active_account_card_large.dart';
+import 'widgets/card/social_media/social_media_card_large.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -27,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     tabController.addListener(_handleTabSelection);
     scrollTabController = ScrollController();
     super.initState();
@@ -58,34 +60,29 @@ class _ProfileScreenState extends State<ProfileScreen>
     Tab(text: Dictionary.account),
     // Tab(text: Dictionary.editProfile),
     Tab(text: Dictionary.changePassword),
+    Tab(text: Dictionary.socialMedia),
+    Tab(text: Dictionary.nonActiveAccount),
   ];
   List<Widget> view = const [
     AccountCardLarge(),
     // EditProfileCardLarge(),
     ChangePasswordCardLarge(),
+    SocialMediaCardLarge(),
+    NonActiveAccountCardLarge(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 70),
+      padding: const EdgeInsets.only(top: 72),
       child: Column(
         children: [
           CustomTabBar(controller: tabController, tabs: tabs),
           const SizedBox(height: 16),
           Flexible(
-            child: ListView(
-              controller: scrollTabController,
-              padding: const EdgeInsets.all(0),
-              children: [
-                SizedBox(
-                  height: SizeConfig.maxHeight(context),
-                  child: TabBarView(
-                    controller: tabController,
-                    children: view,
-                  ),
-                ),
-              ],
+            child: TabBarView(
+              controller: tabController,
+              children: view,
             ),
           ),
         ],

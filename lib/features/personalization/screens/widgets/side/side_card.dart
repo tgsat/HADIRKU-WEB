@@ -1,4 +1,6 @@
+import 'dart:js' as js;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
@@ -18,7 +20,7 @@ class SideCard extends StatelessWidget {
           CardProfile(controller: controller, theme: theme)
         else
           CardProfile(controller: controller, theme: theme),
-        PersonalInformation(theme: theme),
+        PersonalInformation(theme: theme, controller: controller),
       ],
     );
   }
@@ -36,6 +38,7 @@ class CardProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double imageSize = SizeConfig.imageMedium;
     return Container(
       margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(16),
@@ -47,14 +50,16 @@ class CardProfile extends StatelessWidget {
             children: [
               Obx(() {
                 final networkImg = controller.user.value.profilePicture;
-                final img =
-                    networkImg.isNotEmpty ? networkImg : AppIcons.noImage;
+                final fullName = controller.user.value.fullName;
+
+                final img = networkImg.isNotEmpty ? networkImg : fullName;
                 return controller.imageUploading.value
-                    ? const ShimmerEffect(width: 85, height: 85, radius: 85)
+                    ? ShimmerEffect(width: imageSize, height: imageSize)
                     : CircuralImage(
                         img: img,
-                        height: 85,
-                        width: 85,
+                        title: img,
+                        height: imageSize,
+                        width: imageSize,
                         padding: 0,
                         isNetworkImg: networkImg.isNotEmpty,
                       );
@@ -71,26 +76,9 @@ class CardProfile extends StatelessWidget {
                                   .apply(color: AppColor.dark)),
                       controller.imageUploading.value
                           ? const ShimmerEffect(width: 50, height: 15)
-                          : Text(controller.user.value.roles ?? '',
+                          : Text(controller.user.value.roles,
                               style: theme.labelMedium!
                                   .copyWith(color: AppColor.dark, height: 1.2)),
-                      const SizedBox(height: 20),
-                      controller.imageUploading.value
-                          ? const ShimmerEffect(width: 65, height: 22)
-                          : Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.blueAccent.withOpacity(0.4),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Text(controller.company.value.name,
-                                      style: theme.titleMedium!.copyWith(
-                                          color: AppColor.white,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                            ),
                       const SizedBox(height: 10),
                     ],
                   );
@@ -106,9 +94,11 @@ class PersonalInformation extends StatelessWidget {
   const PersonalInformation({
     super.key,
     required this.theme,
+    required this.controller,
   });
 
   final TextTheme theme;
+  final UserController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +108,7 @@ class PersonalInformation extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -127,9 +118,69 @@ class PersonalInformation extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text('Anda belum menulis singkat tentang deskripsi anda',
-              style: theme.labelMedium),
+          Obx(
+            () {
+              final val = controller.user.value;
+              return controller.imageUploading.value
+                  ? const ShimmerEffect(width: 80, height: 15)
+                  : Text(
+                      val.bioData.isEmpty
+                          ? 'Anda belum menulis singkat tentang deskripsi anda'
+                          : val.bioData,
+                      style: theme.labelMedium);
+            },
+          ),
+          const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16), child: Divider()),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              sosmed('', type: Dictionary.facebook),
+              sosmed('', type: Dictionary.tweets),
+              sosmed('', type: Dictionary.instagram),
+              sosmed('', type: Dictionary.linkedin),
+              sosmed('', type: Dictionary.website),
+            ],
+          )
         ],
+      ),
+    );
+  }
+
+  Widget sosmed(String url, {required String type}) {
+    switch (type) {
+      case Dictionary.facebook:
+        return sosmedIcon(AppIcons.facebook, AppColor.facebookGradient, url);
+      case Dictionary.tweets:
+        return sosmedIcon(AppIcons.tweets, AppColor.twitterGradient, url);
+      case Dictionary.instagram:
+        return sosmedIcon(AppIcons.instagram, AppColor.instagramGradient, url);
+      case Dictionary.linkedin:
+        return sosmedIcon(AppIcons.linkedin, AppColor.linkedinGradient, url);
+      case Dictionary.website:
+        return sosmedIcon(AppIcons.website, AppColor.websiteGradient, url);
+      default:
+        return sosmedIcon(AppIcons.facebook, AppColor.facebookGradient, url);
+    }
+  }
+
+  Widget sosmedIcon(String svg, Gradient gradient, String url) {
+    return InkWell(
+      onTap: () => js.context.callMethod('open', [url]),
+      child: Container(
+        height: 50,
+        width: 50,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          // color: color,
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Center(
+          child: SvgPicture.asset(svg,
+              width: SizeConfig.dl, color: AppColor.white),
+        ),
       ),
     );
   }

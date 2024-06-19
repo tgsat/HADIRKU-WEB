@@ -24,6 +24,7 @@ class AppColor {
   static const Color success = Color(0xFF388E3C);
   static const Color warning = Color(0xFFF57C00);
   static const Color info = Color(0xFF1976D2);
+  static const Color disable = Color(0xFFBBBBBB);
 
   // Neutral Shades Colors
   static const Color black = Color(0xFF232323);
@@ -33,4 +34,70 @@ class AppColor {
   static const Color softGrey = Color(0xFFF4F4F4);
   static const Color white = Color(0xFFFFFFFF);
   static const Color red = error;
+
+  // Sosmed Colors
+  static const Color facebook = Color(0xFF1877F2);
+  static const Color twitter = Color(0xFF000000);
+  static const Color instagram = Color(0xFFE1306C);
+  static const Color linkedin = Color(0xFF0077B5);
+  static const Color website = Color(0xFF25D366);
+
+  /// App Gradient Colors
+  /// [Facebook]
+  static const Gradient facebookGradient = LinearGradient(
+    begin: Alignment(0.0, 0.0),
+    end: Alignment(0.707, -0.707),
+    colors: [
+      Color(0xFF1877F2),
+      Color(0xFF1877F2),
+    ],
+  );
+
+  /// [Twitter]
+  static const Gradient twitterGradient = LinearGradient(
+    begin: Alignment(0.0, 0.0),
+    end: Alignment(0.707, -0.707),
+    colors: [
+      Color(0xFF000000),
+      Color(0xFF000000),
+    ],
+  );
+
+  /// [Instagram]
+  static const Gradient instagramGradient = LinearGradient(
+    begin: Alignment(0.0, 0.0),
+    end: Alignment(0.707, -0.707),
+    colors: [
+      Color(0xFF405DE6),
+      Color(0xFF5B51D8),
+      Color(0xFF833AB4),
+      Color(0xFFC13584),
+      Color(0xFFE1306C),
+      Color(0xFFFD1D1D),
+      Color(0xFFF56040),
+      Color(0xFFF77737),
+      Color(0xFFFCAF45),
+      Color(0xFFFFDC80),
+    ],
+  );
+
+  /// [Linkedin]
+  static const Gradient linkedinGradient = LinearGradient(
+    begin: Alignment(0.0, 0.0),
+    end: Alignment(0.707, -0.707),
+    colors: [
+      Color(0xFF0077B5),
+      Color(0xFF0077B5),
+    ],
+  );
+
+  /// [Website]
+  static const Gradient websiteGradient = LinearGradient(
+    begin: Alignment(0.0, 0.0),
+    end: Alignment(0.707, -0.707),
+    colors: [
+      Color(0xFF075E54),
+      Color(0xFF25D366),
+    ],
+  );
 }

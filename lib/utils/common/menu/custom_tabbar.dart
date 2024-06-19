@@ -22,10 +22,10 @@ class CustomTabBar extends StatelessWidget {
                 controller: controller,
                 isScrollable: true,
                 indicatorWeight: 2,
-                labelColor: AppColor.white,
-                indicatorColor: AppColor.active,
+                labelColor: AppColor.active,
+                indicatorColor: AppColor.active.withOpacity(0.1),
                 indicator: BoxDecoration(
-                    color: AppColor.active,
+                    color: AppColor.active.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8)),
                 unselectedLabelColor: Colors.black,
                 labelStyle: Theme.of(context)

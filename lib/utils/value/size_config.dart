@@ -21,6 +21,11 @@ class SizeConfig {
   static const double lg = 24.0;
   static const double xl = 32.0;
 
+  // Images sizes
+  static const double imageSmall = 35.0;
+  static const double imageMedium = 85.0;
+  static const double imageLarge = 120.0;
+
   // Icons sizes
   static const double iconXs = 12.0;
   static const double iconSm = 16.0;

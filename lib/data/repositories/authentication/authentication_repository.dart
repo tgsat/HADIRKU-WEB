@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/data/endpoint/endpoint.dart';
-import 'package:hadirku_web/features/personalization/models/company_model.dart';
 import 'package:hadirku_web/features/personalization/models/roles_model.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,23 +31,6 @@ class AuthenticationRepository extends GetxController {
     final user = _auth.currentUser;
     if (user != null) {
       Get.offAllNamed(dashboardRoute);
-    }
-  }
-
-  Future<void> saveCompanyRecord(CompanyModel comapny) async {
-    try {
-      await _db
-          .collection(Endpoint.company)
-          .doc(comapny.id)
-          .set(comapny.toJson());
-    } on FirebaseException catch (e) {
-      throw CustomFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw const CustomFormatException();
-    } on PlatformException catch (e) {
-      throw CustomPlatformException(e.code).message;
-    } catch (e) {
-      throw Dictionary.somethingWentWrong;
     }
   }
 
@@ -157,6 +139,23 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  /// [ChangePassword] - Re Authenticate User
+  Future<void> changePassword(String newPassword) async {
+    try {
+      await _auth.currentUser!.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      throw CustomFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw Dictionary.somethingWentWrong;
+    }
+  }
+
   /// [LogoutUser] - Valid for any authentication
   Future<void> logout() async {
     try {
@@ -182,12 +181,14 @@ class AuthenticationRepository extends GetxController {
       await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
       await FirebaseStorage.instance
           .ref()
-          .child(
-              "Users/Images/Profile/Me/${AuthenticationRepository.instance.authUser?.uid}.png")
+          .child("Users")
+          .child('Profile')
+          .child('/${AuthenticationRepository.instance.authUser?.uid}')
           .delete();
       prefs.remove('REMEMBER_ME_EMAIL');
       prefs.remove('REMEMBER_ME_PASSWORD');
       prefs.remove('REMEMBER_ME');
+      await prefs.clear();
       await _auth.currentUser?.delete();
     } on FirebaseAuthException catch (e) {
       throw CustomFirebaseAuthException(e.code).message;

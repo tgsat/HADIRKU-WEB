@@ -21,15 +21,6 @@ class SignUpForm extends StatelessWidget {
           const TextHeaderAuth(
               title: Dictionary.signupTitle,
               subTitle: Dictionary.signupSubTitle),
-          CustomLayoutTextFormField(
-            title: Dictionary.companyName,
-            isScreen: !ResponsiveWidget.isSmallScreen(context),
-            child: CustomTextFormField(
-              controller: controller.company,
-              validate: (value) =>
-                  Validator.validateEmptyText(Dictionary.companyName, value),
-            ),
-          ),
           const SizedBox(height: SizeConfig.spaceBtwInputFiels),
           CustomLayoutTextFormField(
             title: Dictionary.fullName,

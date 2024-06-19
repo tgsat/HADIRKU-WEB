@@ -2,44 +2,44 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   final String id;
-  String companyName;
   String fullName;
   String city;
-  String? roles;
+  String roles;
   final String email;
   String phoneNumber;
   String profilePicture;
   String profileName;
+  String profileID;
   String bioData;
 
   UserModel({
     required this.id,
-    required this.companyName,
     required this.fullName,
     required this.city,
-    this.roles,
+    required this.roles,
     required this.email,
     required this.phoneNumber,
     required this.profilePicture,
     required this.profileName,
+    required this.profileID,
     required this.bioData,
   });
 
   static UserModel empty() => UserModel(
         id: '',
-        companyName: '',
         fullName: '',
         city: '',
+        roles: '',
         email: '',
         phoneNumber: '',
         profilePicture: '',
         profileName: '',
+        profileID: '',
         bioData: '',
       );
 
   Map<String, dynamic> toJson() {
     return {
-      'CompanyName': companyName,
       'FullName': fullName,
       'City': city,
       'Roles': roles,
@@ -47,6 +47,7 @@ class UserModel {
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
       'ProfileName': profileName,
+      'ProfileID': profileID,
       'Bio': bioData,
     };
   }
@@ -57,7 +58,6 @@ class UserModel {
       final data = document.data()!;
       return UserModel(
         id: document.id,
-        companyName: data['CompanyName'] ?? '',
         fullName: data['FullName'] ?? '',
         city: data['City'] ?? '',
         roles: data['Roles'] ?? '',
@@ -65,6 +65,7 @@ class UserModel {
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
         profileName: data['ProfileName'] ?? '',
+        profileID: data['ProfileID'] ?? '',
         bioData: data['Bio'] ?? '',
       );
     } else {

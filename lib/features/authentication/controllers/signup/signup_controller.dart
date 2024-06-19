@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hadirku_web/features/personalization/models/company_model.dart';
-import 'package:hadirku_web/features/personalization/models/roles_model.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
 import '../../../../data/repositories/authentication/authentication_repository.dart';
@@ -12,7 +10,6 @@ class SignUpController extends GetxController {
   // Variables
   final hidePassword = true.obs;
   final hidePasswordConfirm = true.obs;
-  final company = TextEditingController();
   final name = TextEditingController();
   final phone = TextEditingController();
   final city = TextEditingController();
@@ -34,33 +31,20 @@ class SignUpController extends GetxController {
       final userCredention = await AuthenticationRepository.instance
           .registerEmailAndPassword(email.text.trim(), password.text.trim());
 
-      final companyS = CompanyModel(
-          id: userCredention.user!.uid,
-          name: company.text.trim(),
-          createAt: DateTime.now());
-
-      final rolesS = RolesModel(
-        id: uniqueKey,
-        roles: 'Administrasi',
-        createAt: DateTime.now(),
-      );
-
       final newUser = UserModel(
         id: userCredention.user!.uid,
-        companyName: companyS.id,
         fullName: name.text.trim(),
         city: city.text.trim(),
-        roles: rolesS.roles,
+        roles: 'Admin',
         email: email.text.trim(),
         phoneNumber: phone.text.trim(),
         profilePicture: '',
         profileName: '',
+        profileID: '',
         bioData: '',
       );
 
       await userRepository.saveUserRecord(newUser);
-      await authRepository.saveCompanyRecord(companyS);
-      await authRepository.saveRolesRecord(rolesS);
 
       Loaders.successSnackBar(
           title: Dictionary.congratulations,

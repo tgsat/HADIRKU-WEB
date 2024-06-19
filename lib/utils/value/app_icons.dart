@@ -4,9 +4,18 @@ class AppIcons {
 
   static const String logo = 'assets/images/logo.png';
   static const String mainLogo = 'assets/images/main-logo.png';
-  static const String noImage = 'assets/images/no-image.jpg';
+  static const String noImage = 'assets/icons/no-image.svg';
+
+  static const String facebook = 'assets/icons/facebook.svg';
+  static const String tweets = 'assets/icons/twitter.svg';
+  static const String instagram = 'assets/icons/instagram.svg';
+  static const String linkedin = 'assets/icons/linkedin.svg';
+  static const String website = 'assets/icons/website.svg';
 
   static const String add = 'assets/icons/add-outline.svg';
+  static const String save = 'assets/icons/save-outline.svg';
+  static const String delete = trash;
+  static const String edit = 'assets/icons/edit.svg';
   static const String info = 'assets/icons/information-circle-outline.svg';
   static const String apps = 'assets/icons/apps-sharp.svg';
   static const String close = 'assets/icons/close-outline.svg';

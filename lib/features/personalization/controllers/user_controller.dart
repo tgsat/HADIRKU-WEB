@@ -4,18 +4,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/features/personalization/models/profile_model.dart';
+import 'package:hadirku_web/features/personalization/screens/widgets/card/non_active_account/reauth_non_active.dart';
 import 'package:hadirku_web/utils/utils.dart';
 
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/repositories/personalization/user_repository.dart';
-import '../models/company_model.dart';
 import '../models/roles_model.dart';
 import '../models/user_model.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
 
+  final hidePassword = true.obs;
+  final hideOldPassword = true.obs;
+  final hideConfirmPassword = true.obs;
+  final imageUploading = false.obs;
   final profileLoading = false.obs;
+
   RxInt selectedGender = 0.obs;
   RxInt selectedStatus = 0.obs;
   RxInt selectedReligius = 0.obs;
@@ -25,13 +30,12 @@ class UserController extends GetxController {
 
   Rx<UserModel> user = UserModel.empty().obs;
   Rx<ProfileModel> profile = ProfileModel.empty().obs;
-  Rx<CompanyModel> company = CompanyModel.empty().obs;
   RxList<RolesModel> allRole = <RolesModel>[].obs;
 
-  final hidePassword = false.obs;
-  final imageUploading = false.obs;
   final verifyEmail = TextEditingController();
+  final oldPassword = TextEditingController();
   final verifyPassword = TextEditingController();
+  final verifyPasswordConfirm = TextEditingController();
 
   final noKTPCont = TextEditingController();
   final noKKCont = TextEditingController();
@@ -39,6 +43,12 @@ class UserController extends GetxController {
   final addressFullCont = TextEditingController();
   final heightCont = TextEditingController();
   final weightCont = TextEditingController();
+
+  final fbCont = TextEditingController();
+  final xCont = TextEditingController();
+  final igCont = TextEditingController();
+  final inCont = TextEditingController();
+  final waCont = TextEditingController();
 
   final userRepository = Get.put(UserRepository());
   final authRepository = Get.put(AuthenticationRepository());
@@ -52,7 +62,6 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUserRecord();
-    fetchUserCompanyRecord();
     fetchUserRolesRecord();
   }
 
@@ -67,6 +76,7 @@ class UserController extends GetxController {
       if (!accountKey.currentState!.validate()) {
         return;
       }
+      profileLoading.value = true;
 
       var isAccount = {
         'FullName': name,
@@ -74,16 +84,15 @@ class UserController extends GetxController {
       };
       await userRepository.updateSingleField(isAccount);
 
-      Loaders.successSnackBar(
-          title: Dictionary.congratulations,
-          message: Dictionary.accountDescription);
-
+      user.value.fullName = name;
+      user.value.bioData = bio;
       user.refresh();
-      // Get.off(() => const ProfileScreen());
     } catch (e) {
       Loaders.errorSnackBar(
           title: Dictionary.oops,
           message: '${Dictionary.cannotUpdate} Akun, ${e.toString()}');
+    } finally {
+      profileLoading.value = false;
     }
   }
 
@@ -134,15 +143,6 @@ class UserController extends GetxController {
     }
   }
 
-  Future<void> fetchUserCompanyRecord() async {
-    try {
-      final companyS = await userRepository.fetchUserCompany();
-      company(companyS);
-    } catch (e) {
-      company(CompanyModel.empty());
-    }
-  }
-
   Future<void> fetchUserRolesRecord() async {
     try {
       final roles = await userRepository.fetchUserRoles();
@@ -156,6 +156,7 @@ class UserController extends GetxController {
     try {
       // First update rx user and then check if user data already stored. If new store new data
       await fetchUserRecord();
+      await fetchUserRolesRecord();
 
       // if no record already stored
       if (user.value.id.isEmpty) {
@@ -163,13 +164,14 @@ class UserController extends GetxController {
           // map data
           final user = UserModel(
               id: userCredential.user!.uid,
-              companyName: '',
               fullName: '',
               city: '',
+              roles: 1.toString(),
               email: userCredential.user!.email ?? '',
               phoneNumber: userCredential.user!.phoneNumber ?? '',
               profilePicture: userCredential.user!.photoURL ?? '',
               profileName: '',
+              profileID: '',
               bioData: '');
 
           // save user data
@@ -189,7 +191,10 @@ class UserController extends GetxController {
         title: Dictionary.deleteAccount,
         middleText: Dictionary.deleteDescription,
         confirm: ElevatedButton(
-            onPressed: () async => deleteUserAccount(),
+            onPressed: () async {
+              Navigator.of(Get.overlayContext!).pop();
+              deleteUserAccount();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 side: const BorderSide(color: Colors.red)),
@@ -201,23 +206,25 @@ class UserController extends GetxController {
                 backgroundColor: Colors.blueGrey,
                 side: const BorderSide(color: Colors.blueGrey)),
             onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-            child: const Text(Dictionary.cancel)));
+            child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.lg),
+                child: Text(Dictionary.cancel))));
   }
 
-  void deleteUserAccount() async {
+  deleteUserAccount() async {
     try {
       final auth = AuthenticationRepository.instance;
       final providers =
           auth.authUser!.providerData.map((e) => e.providerId).first;
-      debugPrint('providers: $providers');
-      // print('providers: $providers');
+
       if (providers.isNotEmpty) {
         if (providers == 'google.com') {
           await auth.deleteAccount();
-          Get.offAllNamed(authSignInRoute);
+          Get.offAll(authSignInRoute);
         } else if (providers == 'password') {
-          // Get.to(() => const ReAuthLoginForm());
-          Get.to(() => Container());
+          HelperFunction.showAlertForm(
+              isTransparant: true,
+              child: const ReauthNonActiveAccountCardLarge());
         }
       }
     } catch (e) {
@@ -248,8 +255,44 @@ class UserController extends GetxController {
     }
   }
 
+  Future<void> reAuthChangePasswordUser() async {
+    try {
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        return;
+      }
+
+      if (!changePasswordKey.currentState!.validate()) {
+        return;
+      }
+      profileLoading.value = true;
+
+      final usr = AuthenticationRepository.instance;
+
+      await usr.reAuthWithEmailAndPassword(
+          usr.authUser!.email!, oldPassword.text.trim());
+
+      await usr.changePassword(verifyPassword.text.trim());
+
+      user.refresh();
+
+      oldPassword.clear();
+      verifyPassword.clear();
+      verifyPasswordConfirm.clear();
+
+      Loaders.successSnackBar(
+          title: Dictionary.congratulations,
+          message: "${Dictionary.updatePassword} anda berhasil");
+    } catch (e) {
+      Loaders.errorSnackBar(title: Dictionary.oops, message: e.toString());
+    } finally {
+      profileLoading.value = false;
+    }
+  }
+
   uploadUserProfilePicture() async {
     try {
+      final userID = AuthenticationRepository.instance.authUser?.uid ?? '';
       var result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['jpg', 'jpeg', 'png'],
@@ -261,21 +304,45 @@ class UserController extends GetxController {
         fileName = result.files.first.name;
 
         final fileUrl =
-            await userRepository.uploadUserImage(fileBytes!, fileName);
+            await userRepository.uploadUserImage(fileBytes!, userID);
 
         Map<String, dynamic> json = {
           'ProfilePicture': fileUrl,
+          'ProfileID': userID,
           'ProfileName': fileName,
         };
         await userRepository.updateSingleField(json);
 
         user.value.profilePicture = fileUrl;
-        user.refresh();
+        user.value.profileName = fileName;
+        user.value.profileID = userID;
 
-        Loaders.successSnackBar(
-            title: Dictionary.congratulations,
-            message: Dictionary.yourProfileImgUpdate);
+        user.refresh();
       }
+    } catch (e) {
+      Loaders.errorSnackBar(title: Dictionary.oops, message: e.toString());
+    } finally {
+      imageUploading.value = false;
+    }
+  }
+
+  removeUserProfilePicture() async {
+    try {
+      imageUploading.value = true;
+      final userID = AuthenticationRepository.instance.authUser?.uid ?? '';
+      Map<String, dynamic> json = {
+        'ProfilePicture': '',
+        'ProfileID': '',
+        'ProfileName': '',
+      };
+      await userRepository.updateSingleField(json);
+      await userRepository.removeUserImage(userID);
+
+      user.value.profilePicture = '';
+      user.value.profileID = '';
+      user.value.profileName = '';
+
+      user.refresh();
     } catch (e) {
       Loaders.errorSnackBar(title: Dictionary.oops, message: e.toString());
     } finally {

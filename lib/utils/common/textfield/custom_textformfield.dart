@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hadirku_web/utils/value/app_color.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? title;
   final TextEditingController? controller;
   final IconData? prefixIcon, suffixIcon;
-  final bool isObscure, expands, readOnly, isDense;
-  final int maxLines;
-  final int? maxLength;
+  final bool isObscure, expands, readOnly, isDense, isLines;
   final dynamic validate;
   final Widget? suffixIconWidget;
   final TextInputType? textInputType;
@@ -25,8 +24,7 @@ class CustomTextFormField extends StatelessWidget {
     this.expands = false,
     this.isDense = false,
     this.readOnly = false,
-    this.maxLines = 1,
-    this.maxLength,
+    this.isLines = false,
     this.suffixIconWidget,
     this.textInputType,
     this.textCapitalization = TextCapitalization.none,
@@ -46,8 +44,8 @@ class CustomTextFormField extends StatelessWidget {
         readOnly: readOnly,
         obscureText: isObscure,
         controller: controller,
-        maxLines: maxLines,
-        maxLength: (maxLength != null) ? maxLength : null,
+        minLines: isLines ? 4 : 1,
+        maxLines: isLines ? null : 1,
         validator: (validate != null) ? validate : null,
         keyboardType: (textInputType != null) ? textInputType : null,
         textCapitalization: textCapitalization,
@@ -56,7 +54,12 @@ class CustomTextFormField extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           isDense: isDense,
+          filled: (readOnly == true) ? true : false,
+          fillColor:
+              (readOnly == true) ? AppColor.disable.withOpacity(0.8) : null,
           hintText: (title == "") ? "" : title,
+          contentPadding:
+              EdgeInsets.symmetric(vertical: isLines ? 15 : 2, horizontal: 10),
           prefixIcon: (prefixIcon != null)
               ? Icon(prefixIcon, color: Colors.black54)
               : null,

@@ -12,9 +12,7 @@ class ProfileLargeScreen extends StatelessWidget {
       largeScreen: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Visibility(
-              visible: !ResponsiveWidget.isLargeScreen(context),
-              child: const Expanded(flex: 2, child: SideCard())),
+          const Expanded(flex: 2, child: SideCard()),
           Expanded(
             flex: 5,
             child: Container(

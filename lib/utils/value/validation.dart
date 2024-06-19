@@ -14,11 +14,10 @@ class Validator {
     }
 
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    // final emailRegExp = RegExp(
-    //     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (!emailRegExp.hasMatch(value)) {
-      return 'Format alamat email salah';
+      return 'Format alamat email salah.';
     }
+
     return null;
   }
 
@@ -44,6 +43,37 @@ class Validator {
   }
 
   // Validation Password
+  static String? validatePasswordOld(String? field, value, String match) {
+    if (value == null || value.isEmpty) {
+      return '$field tidak boleh kosong.';
+    }
+
+    if (value.length < 6) {
+      return '$field harus lebih dari 6 karakter.';
+    }
+
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      return '$field harus mengandung setidaknya satu huruf besar.';
+    }
+
+    if (!value.contains(RegExp(r'[0-9]'))) {
+      return '$field harus berisi setidaknya satu angka.';
+    }
+
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return '$field setidaknya harus mengandung karakter spesial.';
+    }
+
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return '$field setidaknya harus mengandung karakter spesial.';
+    }
+
+    if (value == match) {
+      return '$field anda harus berbeda dengan password lama anda.';
+    }
+    return null;
+  }
+
   static String? validatePassword(String? field, value) {
     if (value == null || value.isEmpty) {
       return '$field tidak boleh kosong.';

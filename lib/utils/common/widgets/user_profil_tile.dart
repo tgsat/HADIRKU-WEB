@@ -12,22 +12,40 @@ class UserProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     final theme = Theme.of(context).textTheme;
+    double imageSize = SizeConfig.imageSmall;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Obx(() {
-          final networkImg = controller.user.value.profilePicture;
-          final img = networkImg.isNotEmpty ? networkImg : AppIcons.noImage;
+          final val = controller.user.value;
+
+          final networkImg = val.profilePicture;
+          final fullName = val.fullName;
+          final role = val.roles;
+
+          final img = networkImg.isNotEmpty ? networkImg : fullName;
           return controller.imageUploading.value
-              ? const ShimmerEffect(width: 35, height: 35, radius: 35)
-              : CircuralImage(
-                  img: img,
-                  height: 35,
-                  width: 35,
-                  padding: 0,
-                  isNetworkImg: networkImg.isNotEmpty,
-                );
+              ? ShimmerEffect(width: imageSize, height: imageSize)
+              : ResponsiveWidget.isSmallScreen(context)
+                  ? ImageTooltip(
+                      message: role.isEmpty ? fullName : '$fullName\n$role',
+                      child: CircuralImage(
+                        img: img,
+                        title: img,
+                        height: imageSize,
+                        width: imageSize,
+                        padding: 0,
+                        isNetworkImg: networkImg.isNotEmpty,
+                      ))
+                  : CircuralImage(
+                      img: img,
+                      title: img,
+                      height: imageSize,
+                      width: imageSize,
+                      padding: 0,
+                      isNetworkImg: networkImg.isNotEmpty,
+                    );
         }),
         Visibility(
           visible: !ResponsiveWidget.isSmallScreen(context),
@@ -36,17 +54,18 @@ class UserProfileTile extends StatelessWidget {
               const SizedBox(width: 6),
               Obx(
                 () {
+                  final val = controller.user.value;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       controller.imageUploading.value
                           ? const ShimmerEffect(width: 65, height: 22)
-                          : Text(controller.user.value.fullName,
+                          : Text(val.fullName,
                               style: theme.titleMedium!
                                   .apply(color: AppColor.dark)),
                       controller.imageUploading.value
                           ? const ShimmerEffect(width: 50, height: 15)
-                          : Text(controller.user.value.roles ?? '',
+                          : Text(val.roles,
                               style: theme.labelMedium!
                                   .copyWith(color: AppColor.dark, height: 1.2)),
                     ],

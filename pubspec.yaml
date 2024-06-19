@@ -47,13 +47,14 @@ dependencies:
   connectivity_plus: ^5.0.1
   image_picker: ^1.0.7
   file_picker: ^7.0.2
+  intl: any
 
   # State Management
   get: ^4.6.5
   shared_preferences: ^2.2.2
 
   # Product Specific
-  fast_cached_network_image: ^1.2.0
+  image_network: any
   shimmer: ^3.0.0
   flutter_spinkit: ^5.2.1
 

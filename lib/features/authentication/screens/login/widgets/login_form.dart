@@ -17,20 +17,7 @@ class LoginForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 12),
-                child: Image(
-                  width: 150,
-                  image: AssetImage(AppIcons.logo),
-                ),
-              ),
-              Expanded(child: Container()),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const TextHeaderAuth(title: Dictionary.login),
+          const TextHeaderAuth(title: Dictionary.welcomeBack),
           const SizedBox(height: 10),
           CustomLayoutTextFormField(
             title: Dictionary.email,
@@ -91,7 +78,8 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () => Get.toNamed(authForgetPasswordRoute),
+                onPressed: () =>
+                    HelperFunction.navigatePushToNamed(authForgetPasswordRoute),
                 child: Text(
                   "${Dictionary.forgetPassword}?",
                   maxLines: 1,

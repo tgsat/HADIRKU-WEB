@@ -27,10 +27,10 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
               visible: !ResponsiveWidget.isSmallScreen(context),
               child: Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Image(
-                      image: AssetImage(AppIcons.mainLogo),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Image.asset(
+                      AppIcons.mainLogo,
                       width: 28,
                     ),
                   ),
@@ -53,7 +53,7 @@ class TopNavigatorMenu extends StatelessWidget implements PreferredSizeWidget {
                 color: AppColor.dark,
               ),
               onTap: () {}),
-          const SizedBox(width: 6),
+          const SizedBox(width: 8),
           UserProfileTile(
             child: PopupMenuButton(
               itemBuilder: (cxt) => [

@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hadirku_web/data/endpoint/endpoint.dart';
-import 'package:hadirku_web/features/personalization/models/company_model.dart';
 import 'package:hadirku_web/features/personalization/models/roles_model.dart';
 import 'package:hadirku_web/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,12 +37,13 @@ class UserRepository extends GetxController {
   // Fuction to fetch user details based user ID
   Future<UserModel> fetchUserDetails() async {
     try {
-      final docSnapshot = await _db
+      final result = await _db
           .collection(Endpoint.users)
           .doc(AuthenticationRepository.instance.authUser?.uid)
           .get();
-      if (docSnapshot.exists) {
-        return UserModel.fromSnapshot(docSnapshot);
+
+      if (result.exists) {
+        return UserModel.fromSnapshot(result);
       } else {
         return UserModel.empty();
       }
@@ -118,7 +118,11 @@ class UserRepository extends GetxController {
   Future<void> removeUserRecord(String userId) async {
     try {
       await _db.collection(Endpoint.users).doc(userId).delete();
-      var collect = _db.collection(Endpoint.users);
+      var collect = _db
+          .collection(Endpoint.users)
+          .doc(userId)
+          .collection(Endpoint.sosmed);
+
       var snap = await collect.get();
       for (var doc in snap.docs) {
         await doc.reference.delete();
@@ -172,18 +176,13 @@ class UserRepository extends GetxController {
     }
   }
 
-  /// [GetCompanyUser] by uid
-  Future<CompanyModel> fetchUserCompany() async {
+  Future<void> removeUserImage(String fileName) async {
     try {
-      final doc = await _db
-          .collection(Endpoint.company)
-          .doc(AuthenticationRepository.instance.authUser?.uid)
-          .get();
-      if (doc.exists) {
-        return CompanyModel.fromSnapshot(doc);
-      } else {
-        return CompanyModel.empty();
-      }
+      await storage
+          .child("Users")
+          .child('Profile')
+          .child('/$fileName')
+          .delete();
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -198,8 +197,13 @@ class UserRepository extends GetxController {
   /// [GetRolesUser] by uid
   Future<List<RolesModel>> fetchUserRoles() async {
     try {
-      final ok = await _db.collection(Endpoint.roles).get();
-      return ok.docs.map((doc) => RolesModel.fromSnapshot(doc)).toList();
+      final ok = await _db
+          .collection(Endpoint.roles)
+          .where('Name', isEqualTo: 'Admin')
+          .get();
+      return ok.docs
+          .map((doc) => RolesModel.fromSnapshot(doc['Name']))
+          .toList();
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on FormatException catch (_) {

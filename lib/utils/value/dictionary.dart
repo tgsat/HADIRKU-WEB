@@ -1,6 +1,7 @@
 class Dictionary {
   static const String appName = "hadirku";
   static const String dashboard = "Dashboard";
+  static const String welcomeBack = "Selamat Datang kembali";
   static const String profile = "Profile";
   static const String login = "Masuk";
   static const String logout = "Logout";
@@ -12,6 +13,7 @@ class Dictionary {
   static const String passwordConfirm = "Konfirmasi Password";
   static const String companyName = "Nama Perusahaan";
   static const String fullName = "Nama Lengkap";
+  static const String id = "UID";
   static const String name = "Nama";
   static const String bio = "Deskripsi";
   static const String noHP = "Nomor HP/WA";
@@ -23,7 +25,7 @@ class Dictionary {
 
   static const String inProgress = "inProgress";
   static const String delivered = "delivered";
-  static const String cancel = "cancel";
+  static const String cancel = "Tutup";
   static const String schedule = "schedule";
 
   static const String permissionStaffing = "Ijin";
@@ -55,8 +57,10 @@ class Dictionary {
       "Terjadi masalah saat menyimpan informasi. Anda dapat menyimpan kembali data Anda di profil Anda.";
   static const String delete = "Hapus";
   static const String add = "Tambah";
+  static const String verify = "Verifikasi";
   static const String update = "Update";
-  static const String updateImage = "Update Foto";
+  static const String save = "Simpan";
+  static const String updateImage = "Upload Foto";
   static const String deleteAccount = "Hapus Akun";
   static const String deleteDescription =
       "Apakah kamu yakin ingin menghapus akun secara permanen?. Tindakan ini tidak dapat dibatalkan dan semua data kamu akan dihapus secara permanen.";
@@ -67,6 +71,18 @@ class Dictionary {
   static const String signupInfo =
       "Pastikan kamu menggunakan alamat email pribadi, agar kamu dapat melakukan verifikasi email nantinya.";
 
+  /// [Sosmed]
+  static const String facebook = "facebook";
+  static const String facebookLink = "https://www.facebook.com";
+  static const String tweets = "twitter";
+  static const String tweetsLink = "https://www.twitter.com";
+  static const String instagram = "instagram";
+  static const String instagramLink = "https://www.instagram.com";
+  static const String linkedin = "linkedin";
+  static const String linkedinLink = "https://www.linkedin.com";
+  static const String website = "website";
+  static const String websiteLink = "https://www.";
+
   /// [Profile]
   static const String activity = "Aktivity";
   static const String account = "Akun";
@@ -74,8 +90,10 @@ class Dictionary {
   static const String profileDescription = "Profile berhasil diupdate";
   static const String editProfile = "Edit Profile";
   static const String changePassword = "Ganti Password";
+  static const String updatePassword = "Perbarui Password";
   static const String socialMedia = "Sosial Media";
   static const String nonActiveAccount = "Non-Aktifkan Akun";
+  static const String reauthNonActiveAccount = "Autentikasi Ulang Akun";
 
   static const String gender = "Jenis Kelamin";
   static const String status = "Status";

@@ -9,6 +9,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ButtonFocusScope(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: CenterMenuWidget(
             isCenter: !ResponsiveWidget.isSmallScreen(context),
             child: SingleChildScrollView(
